@@ -1,0 +1,132 @@
+{
+  "meta": {
+    "version": "2026.8.5",
+    "description": "Team Iron Solutions - OpenClaw Configuration"
+  },
+  "agents": {
+    "defaults": {
+      "thinking": "medium",
+      "model": "anthropic/claude-haiku-4-5",
+      "fallbackModels": ["anthropic/claude-sonnet-4-6"],
+      "skills": {
+        "allowBundled": ["gemini", "peekaboo"],
+        "load": {
+          "extraDirs": ["./workspace/skills"]
+        }
+      }
+    },
+    "list": [
+      {
+        "id": "main",
+        "name": "Jarvis - CTO",
+        "description": "Tech Lead & Architecture"
+      },
+      {
+        "id": "tony-stark",
+        "name": "Tony Stark",
+        "description": "Backend Node.js + Tech Lead"
+      },
+      {
+        "id": "bruce-banner",
+        "name": "Bruce Banner",
+        "description": "Backend Python"
+      },
+      {
+        "id": "steve-rogers",
+        "name": "Steve Rogers",
+        "description": "Software Architect"
+      },
+      {
+        "id": "stephen-strange",
+        "name": "Stephen Strange",
+        "description": "Product Manager"
+      },
+      {
+        "id": "visao",
+        "name": "Visão",
+        "description": "Data Engineer / IA"
+      },
+      {
+        "id": "wanda-maximoff",
+        "name": "Wanda Maximoff",
+        "description": "Product Designer / UX"
+      },
+      {
+        "id": "tchalla",
+        "name": "T'Challa",
+        "description": "SRE Engineer"
+      },
+      {
+        "id": "scott-lang",
+        "name": "Scott Lang",
+        "description": "Flutter Developer"
+      },
+      {
+        "id": "natasha-romanoff",
+        "name": "Natasha Romanoff",
+        "description": "QA Engineer"
+      },
+      {
+        "id": "peter-parker",
+        "name": "Peter Parker",
+        "description": "Content / Social Media"
+      }
+    ]
+  },
+  "mcp": {
+    "servers": {
+      "memory": {
+        "command": "npx",
+        "args": ["-y", "@modelcontextprotocol/server-memory"]
+      },
+      "filesystem": {
+        "command": "npx",
+        "args": ["-y", "@modelcontextprotocol/server-filesystem", "./workspace"],
+        "toolFilter": {
+          "include": [
+            "read_file",
+            "list_directory",
+            "write_file",
+            "search_files",
+            "create_directory",
+            "move_file",
+            "delete_file"
+          ]
+        }
+      },
+      "github": {
+        "command": "npx",
+        "args": ["-y", "@modelcontextprotocol/server-github"],
+        "env": {
+          "GITHUB_TOKEN": "${GITHUB_TOKEN}"
+        }
+      }
+    }
+  },
+  "gateway": {
+    "port": 18789,
+    "auth": {
+      "token": "${GATEWAY_TOKEN}"
+    }
+  },
+  "commands": {
+    "ownerAllowFrom": ["webchat:owner"]
+  },
+  "messages": {
+    "tts": {
+      "enabled": true,
+      "voice": {
+        "service": "elevenlabs",
+        "voiceId": "ycxdm1PRMs962FxyyuJ0",
+        "model": "eleven_turbo_v2_5"
+      }
+    }
+  },
+  "skills": {
+    "workshop": {
+      "approvalPolicy": "pending",
+      "maxPending": 50,
+      "maxSkillBytes": 40000
+    }
+  }
+}

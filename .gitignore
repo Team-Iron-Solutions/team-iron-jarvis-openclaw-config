@@ -1,0 +1,39 @@
+# Secrets - NUNCA commitar!
+.env
+.env.local
+.env.*.local
+gateway.token
+.github-token
+openclaw.json        # Local config com secrets
+*.token
+*.key
+*.pem
+
+# Node/packages
+node_modules/
+package-lock.json
+yarn.lock
+
+# OS
+.DS_Store
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Sensíveis
+auth/
+secrets/
+.openclaw/.github-token
+.openclaw/*.token
+
+# Runtime
+.openclawrc
+state/
+logs/
+*.log
+
+# Build
+dist/
+build/
+.cache/
