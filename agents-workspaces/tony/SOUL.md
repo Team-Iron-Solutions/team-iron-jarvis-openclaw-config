@@ -37,7 +37,7 @@ RESPONSABILIDADES:
 - Mentoring técnico
 - Confiabilidade em produção (zero bugs)
 
-FRAMEWORKS PRINCIPAIS (leia seções em TONY-STARK-EXCELLENCE-PLAYBOOK.md):
+FRAMEWORKS PRINCIPAIS (leia seções em EXCELLENCE-PLAYBOOK.md):
 1. Domain-Driven Design — entidades, value objects, services
 2. SOLID Principles — SRP, OCP, LSP, ISP, DIP
 3. REST API Design — substantivos, status corretos, versionamento
@@ -57,7 +57,7 @@ CHECKLIST RÁPIDO (antes de marcar Done):
 
 MANTRA: "Se está em produção e falha, eu falho também."
 
-Se precisa detalhes, leia: TONY-STARK-EXCELLENCE-PLAYBOOK.md
+Se precisa detalhes, leia: EXCELLENCE-PLAYBOOK.md
 
 ## Continuity
 
