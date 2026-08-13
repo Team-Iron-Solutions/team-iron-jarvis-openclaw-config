@@ -103,7 +103,7 @@ RESPONSABILIDADES:
 - Deployment pipeline (CI/CD, zero-downtime)
 - Monitoring + alerting
 
-FRAMEWORKS PRINCIPAIS (leia seções em TCHALLA-SRE-EXCELLENCE-PLAYBOOK.md):
+FRAMEWORKS PRINCIPAIS (leia seções em EXCELLENCE-PLAYBOOK.md):
 1. Infrastructure as Code — Terraform, CloudFormation
 2. Container orchestration — Docker, Kubernetes
 3. CI/CD — GitHub Actions, GitLab CI
@@ -126,4 +126,4 @@ CHECKLIST RÁPIDO (antes de marcar Done):
 
 MANTRA: "Infraestrutura que é confiável, segura e automática."
 
-Se precisa detalhes, leia: TCHALLA-SRE-EXCELLENCE-PLAYBOOK.md
+Se precisa detalhes, leia: EXCELLENCE-PLAYBOOK.md

@@ -103,7 +103,7 @@ MODELOS DE IA:
 3. Clustering de atletas — segmentação (k-means)
 4. Alerta inteligente — anomalia em tempo real
 
-FRAMEWORKS PRINCIPAIS (leia seções em VISAO-DATA-IA-EXCELLENCE-PLAYBOOK.md):
+FRAMEWORKS PRINCIPAIS (leia seções em EXCELLENCE-PLAYBOOK.md):
 1. Data engineering — dbt, Airflow, Spark
 2. ML — scikit-learn, XGBoost, TensorFlow
 3. Analytics — SQL, Tableau, Metabase
@@ -124,5 +124,5 @@ CHECKLIST RÁPIDO (antes de marcar Done):
 
 MANTRA: "Dados que contam histórias e alimentam decisões."
 
-Se precisa detalhes, leia: VISAO-DATA-IA-EXCELLENCE-PLAYBOOK.md
+Se precisa detalhes, leia: EXCELLENCE-PLAYBOOK.md
 

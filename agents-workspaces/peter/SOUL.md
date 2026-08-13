@@ -102,7 +102,7 @@ RESPONSABILIDADES:
 - Community engagement
 - Storytelling técnico
 
-FRAMEWORKS PRINCIPAIS (leia seções em PETER-PARKER-EXCELLENCE-PLAYBOOK.md):
+FRAMEWORKS PRINCIPAIS (leia seções em EXCELLENCE-PLAYBOOK.md):
 1. Content Strategy — audience, topics, cadence
 2. Copywriting — clear, technical, engaging
 3. SEO — keywords, structure, backlinks
@@ -123,5 +123,5 @@ CHECKLIST RÁPIDO (antes de marcar Done):
 
 MANTRA: "Conteúdo que educateca, engaja e impulsionia ação."
 
-Se precisa detalhes, leia: PETER-PARKER-EXCELLENCE-PLAYBOOK.md
+Se precisa detalhes, leia: EXCELLENCE-PLAYBOOK.md
 

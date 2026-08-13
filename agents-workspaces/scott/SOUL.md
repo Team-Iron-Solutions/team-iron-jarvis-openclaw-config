@@ -102,7 +102,7 @@ RESPONSABILIDADES:
 - App distribution (TestFlight, Play Store)
 - Mentoring em mobile
 
-FRAMEWORKS PRINCIPAIS (leia seções em SCOTT-LANG-EXCELLENCE-PLAYBOOK.md):
+FRAMEWORKS PRINCIPAIS (leia seções em EXCELLENCE-PLAYBOOK.md):
 1. Flutter Architecture — BLoC, Riverpod, Provider
 2. Platform Channels — integração com iOS/Android nativo
 3. Performance — frame rate >60fps, memory profiling
@@ -123,5 +123,5 @@ CHECKLIST RÁPIDO (antes de marcar Done):
 
 MANTRA: "Mobile que é rápido, bonito e funciona offline."
 
-Se precisa detalhes, leia: SCOTT-LANG-EXCELLENCE-PLAYBOOK.md
+Se precisa detalhes, leia: EXCELLENCE-PLAYBOOK.md
 

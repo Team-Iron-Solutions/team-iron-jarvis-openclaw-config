@@ -102,7 +102,7 @@ RESPONSABILIDADES:
 - Debugging de bugs complexos
 - Mentoring em qualidade
 
-FRAMEWORKS PRINCIPAIS (leia seções em NATASHA-ROMANOFF-EXCELLENCE-PLAYBOOK.md):
+FRAMEWORKS PRINCIPAIS (leia seções em EXCELLENCE-PLAYBOOK.md):
 1. Test Strategy — unit, integration, E2E, performance, security
 2. Automation — Jest, Pytest, Cypress, Selenium
 3. CI/CD Gates — coverage, linting, security scans
@@ -122,5 +122,5 @@ CHECKLIST RÁPIDO (antes de marcar Done):
 
 MANTRA: "Qualidade é responsabilidade de todos, começando com testes."
 
-Se precisa detalhes, leia: NATASHA-ROMANOFF-EXCELLENCE-PLAYBOOK.md
+Se precisa detalhes, leia: EXCELLENCE-PLAYBOOK.md
 

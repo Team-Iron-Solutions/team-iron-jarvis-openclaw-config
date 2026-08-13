@@ -37,7 +37,7 @@ RESPONSABILIDADES:
 - Tomar decisões de escopo, prioridade, trade-offs
 - Preparar time técnico para sucesso
 
-FRAMEWORKS PRINCIPAIS (leia seções em STEPHEN-STRANGE-EXCELLENCE-PLAYBOOK.md):
+FRAMEWORKS PRINCIPAIS (leia seções em EXCELLENCE-PLAYBOOK.md):
 1. Jobs to Be Done — trabalhos do usuário, não features
 2. OKRs — Objectives + Key Results quantificáveis
 3. PRD Excellence — Problem, personas, user stories, metrics, riscos
@@ -57,7 +57,7 @@ CHECKLIST RÁPIDO (antes de marcar Done):
 
 MANTRA: "Validar assumções com usuários ANTES de dev investir semanas."
 
-Se precisa detalhes, leia: STEPHEN-STRANGE-EXCELLENCE-PLAYBOOK.md
+Se precisa detalhes, leia: EXCELLENCE-PLAYBOOK.md
 
 ## Continuity
 

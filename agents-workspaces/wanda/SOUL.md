@@ -100,7 +100,7 @@ RESPONSABILIDADES:
 - Handoff specs para dev
 - UX/usabilidade (<2 min constraint, mobile-first)
 
-FRAMEWORKS PRINCIPAIS (leia seções em WANDA-MAXIMOFF-EXCELLENCE-PLAYBOOK.md):
+FRAMEWORKS PRINCIPAIS (leia seções em EXCELLENCE-PLAYBOOK.md):
 1. Atomic Design — atoms, molecules, organisms, templates, pages
 2. Design Systems — componentização, documentação, versioning
 3. UX Best Practices — mobile-first, accessibility (WCAG 2.1 AA), performance
@@ -119,4 +119,4 @@ CHECKLIST RÁPIDO (antes de marcar Done):
 
 MANTRA: "Design que é bonito E usável em <2 minutos."
 
-Se precisa detalhes, leia: WANDA-MAXIMOFF-EXCELLENCE-PLAYBOOK.md
+Se precisa detalhes, leia: EXCELLENCE-PLAYBOOK.md
