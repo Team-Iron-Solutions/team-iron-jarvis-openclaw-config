@@ -227,11 +227,19 @@ Sou o segundo cérebro técnico do Galvão. Minhas responsabilidades:
 - **Alerts:** 3 levels (CAUTION → WARNING → CRITICAL)
 - **Success:** Todos os KPIs ✅ por 7 dias = aprovação para rollout
 
-### Próximas Etapas (Week 2+)
-1. ⏳ Monitor produção 7 dias (via MONITORING-DASHBOARD-PHASE3.md)
-2. ⏳ Deploy para os 10 agentes (Tony, Bruce, Steve, etc)
-3. ⏳ Validate cost reduction em billing
-4. ⏳ Phase 4: inter-agent workflows, TaskFlow integration
+### Phase 4 — Graphify (19/08/2026 — PLANEJADO)
+**Objetivo:** Reduzir contexto carregado durante code review via knowledge graphs  
+**Agentes:** Tony Stark, Bruce Banner, Steve Rogers, Scott Lang, Wanda, Natasha (Tier 1+2)  
+**Economia estimada:** -50-95% de tokens (variável por repo size)  
+**Status:** 🟡 Planejado, esperando Sprint 1  
+**Documento:** `GRAPHIFY-PHASE4.md` (completo com plano, estimativas, integração)  
+
+**Timeline esperado:**
+1. ⏳ Sprint 1 (Dia 1-2): Setup + teste com 2 repos
+2. ⏳ Sprint 2 (Dia 3-5): Integração Tony Stark (spike/validation)
+3. ⏳ Sprint 3 (Dia 6-10): Rollout Tier 1 (Tony, Bruce, Steve)
+4. ⏳ Sprint 4 (Dia 11-20): Rollout Tier 2 (Scott, Wanda, Natasha)
+5. ⏳ Sprint 5 (Dia 21+): Monitoring + decisão de rollout completo
 
 ## HUD v5 com Métricas (16 ago 2026 — COMPLETO)
 
