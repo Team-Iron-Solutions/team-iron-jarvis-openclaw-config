@@ -6,24 +6,58 @@
 
 ---
 
-## Descoberta: Python Version Blocker
+## Descoberta: Python Version Blocker → RESOLVIDO COM UV ✅
 
-### Problema
+### Problema Original
 ```
 graphifyy requer Python >=3.10
 Mac mini tem: Python 3.9.6
 ```
 
-### Solução Aplicada
-1. Instalar `pyenv` via curl (installer oficial)
-2. Usar pyenv para instalar Python 3.12.0
-3. Settar como version padrão
+### Solução v1 (CANCELADA)
+1. Instalar `pyenv` via curl — compilação local (30 min)
+   - ❌ Muito lento, complexo, desnecessário
 
-### Timeline
-- **13:43** — Descoberto bloqueador
-- **13:45** — pyenv instalado
-- **13:46** — `pyenv install 3.12.0` iniciado (compilando C extensions)
-- **~14:15** — ETA conclusão (Python build típico ~30min em arm64 Mac)
+### Solução v2 (ATIVA) — UV ✅
+1. Usar `uv python install 3.12` (pré-compilado, 652ms)
+2. Usar `uv venv` para isolamento (~2s)
+3. Usar `uv pip install graphifyy` (10s)
+4. **Total: ~3 min vs 30 min**
+
+### Timeline (v2)
+- **13:43** — Descoberto bloqueador Python
+- **13:50** — Galvão questiona compilação → pivot para uv
+- **13:51** — Aprovado: vamos de uv
+- **13:51:10** — Python 3.12.13 download + install (652ms) ✅
+- **13:51:30** — graphifyy instalado + tree-sitter parsers ✅
+- **13:52:00** — Graphify buildando OpenJarvis graph... 🔄
+
+---
+
+## Descoberta: Graphifyy usa LLM para "semantic extraction"
+
+### Encontrado
+Graphifyy requer LLM para extrair contexto semântico do código (classes, funções, patterns).
+- Por padrão: OpenAI API (requer chave)
+- Alternativa: Ollama local
+
+### Solução ✅ OLLAMA LOCAL
+Galvão sugeriu Ollama (local, sem custos, offline).
+
+**Configs:**
+```bash
+# Usar Ollama backend com qwen3.5:4b
+graphify . --output out \
+  --backend ollama \
+  --model qwen3.5:4b \
+  --max-concurrency 1
+```
+
+**Por que Ollama:**
+- ✅ Local (offline, sem dependência externa)
+- ✅ Sem custos (roda no Mac mini)
+- ✅ Modelos disponíveis: qwen3.5 (2b/4b/9b), llama3.2
+- ✅ Suportado nativamente pelo Graphifyy
 
 ---
 
