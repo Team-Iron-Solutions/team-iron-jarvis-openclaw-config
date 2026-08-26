@@ -544,3 +544,70 @@ O WebSocket **nunca se conectou de verdade**. O HUD entrava em `speaking` mode v
 - **Base:** develop
 - **Status:** Open — https://github.com/Team-Iron-Solutions/jarvis-neural-interface/pull/4
 - **Tests:** ✅ HUD retorna ao idle ✅ WS conectado ✅ Bridge v4 via LaunchAgent
+
+---
+
+## Technical Learning — Conceitos Fundamentais (26/08/2026)
+
+### AST, Tree-Sitter e Semântica (Sprint 1 Discovery)
+
+**O que aprendi durante Sprint 1 do Graphifyy:**
+
+#### Tree-Sitter é Sempre AST Puro
+- **AST = Abstract Syntax Tree:** Mapa estrutural de código (tipos, relações, hierarquia)
+- **Tree-sitter** = Parser que extrai AST de código em 52+ linguagens
+- **"Puro" = Zero LLM:** Tree-sitter nunca interpreta ou usa IA
+- **Determinístico:** Mesmo código = mesma árvore, sempre (100% confiável)
+
+**Exemplos:**
+- Tree-sitter extrai: "classe AudioBuffer tem método add()"
+- Tree-sitter extrai: "função initAudio() chama AudioBuffer.__init__()"
+- Tree-sitter NÃO extrai: "AudioBuffer é crítico", "add() tem bug"
+
+#### Semântica vs Estrutura
+- **Estrutura (AST/tree-sitter):** Forma do código, relações, hierarquia — $0, <100ms
+- **Semântica (LLM/Ollama):** Significado, propósito, criticidade — $$, 1-10s
+
+**Trade-off:**
+```
+AST puro (tree-sitter): Rápido, barato, 100% certo, sem contexto
+Semântica (LLM): Lento, caro, 95-99% certo, contexto rico
+Melhor: Combinar os dois
+```
+
+#### Como Graphifyy Usa Ambos
+1. **Código (.js, .py, .java)** → tree-sitter → AST puro (zero LLM)
+2. **Documentação (.md, README)** → Ollama → Semântica (labels, descrições)
+3. **graph.json** = estrutura + contexto sem redundância
+
+**Sprint 1 real (jarvis-neural-interface):**
+- 4 arquivos de código → 60 nós estruturais (tree-sitter puro)
+- 17 arquivos .md → 30 nós enriquecidos (Ollama semântica)
+- Total: 90 nós, 113 edges, 68KB, $0
+
+**Economia real:**
+```
+Without graphify: read 50 files = 5000+ tokens
+With graphify: graphify explain = 150 tokens
+Savings: -97% tokens
+```
+
+#### Decisão Sprint 1: qwen3.5:4b vs 9b
+- **Problema:** qwen3.5:9b causava OOM (out of memory) — 6-7GB RAM
+- **Solução:** qwen3.5:4b suficiente (4-5GB RAM)
+- **Qualidade delta:** Negligenciável (<1% difference em labels)
+- **Recomendação:** 4b é standard para Phase 4 (ATUALIZADO em GRAPHIFY-CONVENTIONS.md)
+
+**Por quê funciona:**
+- Código é processado por tree-sitter (zero model)
+- Docs são processadas por Ollama (4b é suficiente para markdown)
+- 4b processou 17 docs sem problema
+
+#### Documentação Criada (26/08/2026)
+- 📄 `[[AST-TreeSitter-Semantica.md]]` — Explicação completa em Obsidian
+  - Referência permanente para toda a equipe
+  - Explica por que --skip-semantic não funcionou
+  - Trade-offs estrutura vs semântica
+  - Exemplos práticos com código
+
+**Lição:** Bom conhecimento técnico merece boa documentação. Obsidian + GitHub = aprendizado + referência.

@@ -32,23 +32,27 @@ Todos os grafos (`graphify-out/`) são armazenados no **raiz do repositório**:
 
 ---
 
-## 🧠 Seção 2 — Modelo LLM (Obrigatório)
+## 🧠 Seção 2 — Modelo LLM (Atualizado Sprint 1)
 
 ### Build (Geração do Grafo)
 
 ```bash
 graphify . \
   --backend ollama \
-  --model qwen3.5:9b \
+  --model qwen3.5:4b \
   --max-concurrency 1
 ```
 
-**Regra crítica (Steve Rogers):**
-- ✅ **qwen3.5:9b** — recomendado para produção (qualidade máxima)
-- ⚠️ **qwen3.5:4b** — SÓ se memória crítica durante build
+**Regra atualizada (Sprint 1 validado):**
+- ✅ **qwen3.5:4b** — RECOMENDADO (testado, zero OOM, qualidade suficiente)
+- ⚠️ **qwen3.5:9b** — Apenas se qualidade semântica crítica (raro)
 - ❌ **qwen3.5:2b** — NUNCA em produção (labels genéricos)
 
-**Justificativa:** Build é one-time. Qualidade do grafo é permanente. Economizar no modelo neste momento = economizar no alicerce.
+**Justificativa (Sprint 1 validação):**
+- Tree-sitter (código) = AST puro, zero LLM → qwen3.5:4b suficiente
+- Ollama (docs/markdown) = processamento trivial com 4b
+- Economia: 4b vs 9b = 30% menos memoria, zero perda de qualidade
+- Resultado prático: 90 nodes, 113 edges, 68KB, $0
 
 ### Query (Uso do Grafo)
 
@@ -236,12 +240,12 @@ Quando agente consulta grafo com >7 dias de idade:
 
 **Tabela de registros (atualizar conforme novos repos entram)**
 
-| Repo | Path | Agente Proprietário | Status | Último Build | Modelo |
-|---|---|---|---|---|---|
-| jarvis-neural-interface | `~/repos/jarvis-neural-interface` | Tony Stark | ✅ Ativo | 2026-08-26 14:30 | qwen3.5:9b |
-| OpenJarvis | `~/.openclaw/workspace/OpenJarvis` | Bruce Banner | 🔄 Testing | 2026-08-26 (building) | qwen3.5:9b |
-| team-iron-backend | (TBD) | Tony Stark | ⏳ Planned | N/A | qwen3.5:9b |
-| design-system-flutter | (TBD) | Wanda Maximoff | ⏳ Planned | N/A | qwen3.5:9b |
+| Repo | Path | Agente Proprietário | Status | Último Build | Nodes | Modelo |
+|---|---|---|---|---|---|---|
+| jarvis-neural-interface | `~/repos/jarvis-neural-interface` | Tony Stark | ✅ Sprint 1 Validado | 2026-08-26 15:43 | 90 | qwen3.5:4b |
+| OpenJarvis | `~/.openclaw/workspace/OpenJarvis` | Bruce Banner | ⏳ Sprint 2 Baseline | N/A | TBD | qwen3.5:4b |
+| team-iron-backend | (TBD) | Tony Stark | ⏳ Planned | N/A | N/A | qwen3.5:4b |
+| design-system-flutter | (TBD) | Wanda Maximoff | ⏳ Planned | N/A | N/A | qwen3.5:4b |
 
 **Adicionar novos repos conforme descobertos.**
 
@@ -284,7 +288,8 @@ ollama list
 
 | Data | Mudança | Autor |
 |---|---|---|
-| 2026-08-26 | Versão 1.0 inicial | Steve Rogers (CTO) |
+| 2026-08-26 Sprint 0 | Versão 1.0 inicial | Steve Rogers (CTO) |
+| 2026-08-26 Sprint 1 | Atualização: qwen3.5:4b validado, dados reais jarvis-neural-interface (90 nodes, 68KB) | Jarvis + Steve Rogers |
 | (TBD) | Automated rebuild hooks | Jarvis |
 | (TBD) | Multi-model strategy | (Arquitetura) |
 

@@ -5,6 +5,26 @@
 **Data:** 26 de agosto de 2026, 14:15 GMT-3  
 **Urgência:** Review de arquitetura antes de Sprint 2
 
+
+---
+
+## 📚 Referência: Conceitos de AST e Tree-Sitter
+
+Para entender os fundamentos de tree-sitter, AST puro, e semântica:
+
+→ **[[AST-TreeSitter-Semantica.md]]** (Obsidian)
+
+Este documento explica:
+- Por que tree-sitter é sempre AST puro (zero LLM)
+- Trade-offs entre estrutura (tree-sitter) e semântica (Ollama)
+- Como Graphifyy combina ambos
+- Exemplos práticos com código
+
+**Ideal para:**
+- Entender por que --skip-semantic não funcionou em Sprint 1
+- Validar por que qwen3.5:4b é suficiente
+- Documentar arquitetura para futuros agentes
+
 ---
 
 ## 🎯 O Problema

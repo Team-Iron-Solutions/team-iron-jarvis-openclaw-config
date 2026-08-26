@@ -247,13 +247,27 @@ uv tool install graphifyy
 
 ## Referências
 
+### Conceitos Técnicos
+📚 **[[AST-TreeSitter-Semantica.md]]** — Explicação completa sobre AST, tree-sitter, e o que significa "AST puro"
+- Ideal para: Entender por que tree-sitter não usa LLM
+- Ideal para: Trade-offs entre semântica (LLM) vs estrutura (tree-sitter)
+- Ideal para: Validar decisões de arquitetura Phase 4
+
+### Documentação Externa
 - **GitHub:** https://github.com/Graphify-Labs/graphify
 - **Docs:** https://graphify.com (early access)
 - **PyPI:** https://pypi.org/project/graphifyy/
+- **Tree-Sitter:** https://tree-sitter.github.io/
 - **Community:** https://discord.gg/598Ad9zQZ
+
+### Documentação Interna Phase 4
+- **GRAPHIFY-CONVENTIONS.md** — Padrões operacionais (modelos, paths, rebuilds)
+- **PHASE4-AGENT-PLAYBOOK.md** — Como agentes usam graphify
+- **PHASE4-VALIDATION-CHECKLIST.md** — Testes e métricas
+- **PHASE4-SPRINT1-LOG.md** — Log de execução Sprint 1
 
 ---
 
 **Owner:** Jarvis  
-**Last updated:** 19/08/2026  
-**Status:** 🟡 Aprovado, esperando Sprint 1
+**Last updated:** 26/08/2026 (Sprint 1 completo)  
+**Status:** ✅ Sprint 1 Validado | 🔄 Sprint 2 Próximo
