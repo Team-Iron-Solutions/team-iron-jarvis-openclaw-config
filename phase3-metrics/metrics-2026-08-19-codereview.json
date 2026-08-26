@@ -1,0 +1,28 @@
+{
+  "timestamp": "2026-08-19 22:36:00",
+  "date": "2026-08-19",
+  "event": "code-review-spike",
+  "bridge": {
+    "compression_ratio": 31.7,
+    "request_count": 1,
+    "error_count": 0,
+    "last_request_ms": 1787159762557,
+    "health": "OK",
+    "input_tokens": 732,
+    "compressed_tokens": 500
+  },
+  "caveman": {
+    "compressions_in_log": 1,
+    "errors_in_log": 0,
+    "compression_type": "code-review"
+  },
+  "tts": {
+    "calls": 1
+  },
+  "quality": {
+    "agent": "Tony Stark",
+    "analysis_depth": 5,
+    "problems_found": 7,
+    "recommendations": "Production-ready"
+  }
+}
