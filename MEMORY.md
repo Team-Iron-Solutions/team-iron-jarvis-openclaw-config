@@ -611,3 +611,69 @@ Savings: -97% tokens
   - Exemplos práticos com código
 
 **Lição:** Bom conhecimento técnico merece boa documentação. Obsidian + GitHub = aprendizado + referência.
+
+---
+
+## Wildream App Project (28/08/2026 — INICIADO)
+
+**Cliente:** Wildream  
+**Tipo:** Aplicativo mobile de aprendizagem de inglês  
+**Status:** 🟡 **Análise PRD em andamento**  
+**PM responsável:** Stephen Strange  
+**Tech Lead:** Jarvis  
+
+### O Que É
+
+Plataforma mobile (iOS + Android) para ensino de inglês baseada em:
+- Repetição espaçada (flashcards inteligentes)
+- Prática de frases reais
+- IA (conversação, pronúncia, vocabulário, feedback gramatical)
+- Suporte humano via professores (versão Pro)
+
+**Modelo de Negócio:** Free (essencial) + Pro (IA + suporte humano)  
+**Preço Pro:** R$ 29,90/mês ou R$ 299,00/ano (configurável)  
+**Pagamento:** Cartão + Mercado Pago  
+**Roadmap Futuro:** B2B (Wild Dream for Business) — treinamento corporativo
+
+### MVP — Funcionalidades Principais
+
+**Free:**
+- Flashcards com repetição espaçada (algoritmo parametrizável)
+- Criar/editar/buscar frases
+- Traduções
+- Teste de nível CEFR (opcional)
+- Metas diárias por nível
+- Progresso e histórico
+- Troféus + streaks
+
+**Pro (tudo acima +):**
+- Áudio gerado por IA
+- Análise de pronúncia (palavra por palavra)
+- Feedback gramatical
+- Conversação por texto com IA (com cenários)
+- Conversação por voz com IA
+- Geração de vocabulário por tema
+- Tarefas atribuídas por professor
+- Suporte via chat com professor
+
+### Públicos
+
+1. **Aluno Free:** Estuda grátis com flashcards
+2. **Aluno Pro:** IA + suporte de professor
+3. **Professor:** Chat de suporte, criação de tarefas
+4. **Admin:** Dashboard (usuários, métricas, planos, parâmetros)
+
+### Documentação
+
+- **PRD Completo:** `projects/wildream/WILDREAM_APP_PRD_V1.0.md`
+- **Request Análise:** `projects/wildream/PRD-Analysis-Request.md`
+- **Project Hub (Obsidian):** `obsidian-vault/Projetos/Wildream-Project-Hub.md`
+- **Análise PM:** `projects/wildream/PRD-Analysis-Response.md` (🟡 Aguardando)
+
+### Timeline
+
+- **28/08:** PRD enviado para Stephen Strange (análise)
+- **Antes 02/09:** Análise e recomendações esperadas
+- **02-03/09:** Validação com Galvão
+- **03/09+:** Kickoff técnico
+

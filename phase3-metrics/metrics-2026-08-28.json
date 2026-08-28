@@ -1,0 +1,21 @@
+{
+  "timestamp": "2026-08-28 05:00:07",
+  "date": "2026-08-28",
+  "bridge": {
+    "compression_ratio": None,
+    "request_count": 0,
+    "error_count": 0,
+    "last_request_ms": None,
+    "health": "OK"
+  },
+  "caveman": {
+    "compressions_in_log": 0
+0,
+    "errors_in_log": 0
+0
+  },
+  "tts": {
+    "calls": 0
+0
+  }
+}
