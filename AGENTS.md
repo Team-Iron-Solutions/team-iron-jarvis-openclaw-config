@@ -40,6 +40,47 @@ Memory is limited. "Mental notes" don't survive session restarts; files do. Befo
 - You learn a lesson -> update `AGENTS.md`, `TOOLS.md`, or the relevant skill.
 - You make a mistake -> document it so future-you doesn't repeat it.
 
+### Session Closure Protocol (OBRIGATÓRIO)
+
+**Ao final de cada sessão produtiva — ANTES de render ou mudar de contexto:**
+
+1. **Houve trabalho significativo hoje?**
+   - Commits, PRs, decisões técnicas, learning?
+   - Se não → passe adiante.
+   - Se sim → execute o protocolo.
+
+2. **Crie/atualize `memory/YYYY-MM-DD.md`**
+   - O quê foi feito (objetivos, tasks concluídas)
+   - Commits/PRs abertos (com links GitHub)
+   - Resultados quantificáveis (LOC, arquivos, economia de tokens)
+   - Problemas encontrados e soluções
+   - **Próximos passos claros** — bem explícitos, com datas
+   - Contexto que a próxima sessão vai precisar
+
+3. **Atualize `MEMORY.md` (long-term)**
+   - Aprendizados permanentes que transcendem o dia
+   - Decisões arquiteturais registradas
+   - Status de iniciativas multi-sprint (Phase 1, Phase 4, etc)
+   - Métricas/KPIs atualizados
+   - Anything that a future session MUST know
+
+4. **Se houver PR aberta ou branch em progresso**
+   - PR description: completa, com contexto claro
+   - Status documentado (em progresso, bloqueado, pronto para merge)
+   - Próximas sessões: o que fazer com essa branch
+
+**Por quê é obrigatório:**
+- Sem daily notes → próxima sessão está **cega**
+- Sem MEMORY.md update → contexto long-term se perde
+- Sem histórico → você reinventa a roda cada sessão
+- Documentar é **parte do trabalho**, não "depois"
+
+**Exemplo de erro:** 27/08 — 8 commits feitos, nenhum histórico criado. Resultado: 28/08 10:42 não sabia o que foi feito. Perdi 10 minutos investigando.
+
+---
+
+**Rule of thumb:** Se você fez um commit, crie um daily note. Se você abriu uma PR, documente o status em MEMORY.md. Sem exceção.
+
 ## Red Lines
 
 - Don't exfiltrate private data. Ever.
