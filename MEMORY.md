@@ -677,3 +677,81 @@ Plataforma mobile (iOS + Android) para ensino de inglês baseada em:
 - **02-03/09:** Validação com Galvão
 - **03/09+:** Kickoff técnico
 
+
+### Análise PRD Completa — Stephen Strange (28/08/2026)
+
+**Status:** ✅ ANÁLISE ENTREGUE
+
+**Veredicto:** Visão sólida + escopo irreal para 10-12 semanas
+
+#### ✅ Pontos Fortes (Validados)
+1. **Princípio central excelente** — "aumentar frequência, não substituir" (Jobs to Be Done claro)
+2. **Free tier genuinamente útil** — não é apenas teaser
+3. **Critério de sucesso excelente** — Seção 19 (pergunta norteadora é bússola)
+4. **Decisões abertas explícitas** — Seção 18 mostra maturidade
+5. **Gamificação sem ranking** — decisão pedagogicamente correta
+6. **4 perfis bem definidos** — autorização clara
+7. **Monetização configurável** — sem hardcoding de preços
+
+#### 🔴 RISCOS CRÍTICOS (3 Bombas)
+1. **Escopo irreal** — 17 features em 10-12 semanas é produto de 6-9 meses
+   - Fix: Conversação por voz → V1.1, Suporte professor → ticket assíncrono
+2. **Algoritmo de repetição errado** — baseado em contagem, não tempo
+   - Fix: SM-2 ou FSRS (algoritmo real, baseado em dias/horas)
+3. **Meta A1: 150 frases/dia mata engajamento** — iniciante não consegue
+   - Fix: A1 = 20-30 frases/dia (pedagogicamente correta)
+
+#### 🟠 Riscos Altos (Documentados)
+- Custo de IA pode destruir margem sem franquia definida
+- Suporte de professores é complexidade operacional prematura
+- Banco de frases inicial não mencionado (conteúdo = 0?)
+- Conversação por voz é feature de alto risco técnico
+- Admin completo no MVP = desperdício de capacidade
+
+#### 🤔 Perguntas Críticas para Galvão
+1. Volume esperado de usuários no lançamento?
+2. Há banco de frases/conteúdo existente ou parte do zero?
+3. Quantos professores disponíveis + SLA?
+4. Orçamento máximo mensal para APIs de IA?
+5. App é complemento ou standalone?
+6. Houve validação com usuários (entrevistas, protótipo, beta)?
+7. Chat com professores: síncrono ou assíncrono?
+8. Design system / Figma já pronto?
+9. B2B é intenção real ou especulativa?
+
+#### 📊 MVP Revisado (Realista 10-12 semanas)
+- Semanas 1-2: Fundação (cadastro, onboarding, nível, banco de frases)
+- Semanas 3-5: Core (flashcards, repetição espaçada REAL SM-2, metas)
+- Semanas 5-6: Engajamento (streak, troféus, notificações)
+- Semanas 6-8: Monetização (Free/Pro, Mercado Pago, TTS básica)
+- Semanas 8-10: IA Texto (conversação por texto, pronúncia básica)
+- Semanas 10-12: Admin + QA + stores
+
+**SAI do MVP:**
+- Conversação por voz → V1.1
+- Pronúncia palavra a palavra (detalhada) → V1.1
+- Geração de vocabulário por IA → V1.1
+- Chat com professores → Ticket assíncrono no MVP, sistema real no V1.1
+- Admin completo → Admin minimal (usuários, planos, receita)
+
+#### 💡 Recomendações Principais
+1. Cortar escopo rigorosamente (5-6 features saem, vão para V1.1)
+2. **Definir KPIs de sucesso** antes do kickoff:
+   - Retenção D7 ≥ 40%
+   - Conversão Free→Pro ≥ 5% (mês 1), ≥ 10% (mês 3)
+   - DAU/MAU ≥ 30%
+   - Churn Pro mensal ≤ 10%
+3. Corrigir algoritmo de repetição espaçada (SM-2 ou FSRS)
+4. Revisar metas diárias com base pedagógica
+5. Converter suporte professor (MVP) → ticket assíncrono
+6. Definir conteúdo inicial antes do kickoff (200 frases/nível CEFR mínimo)
+7. Estratégia offline mínima (flashcards funcionam offline)
+8. Definir franquia de IA antes do kickoff (ex: 60 sessões/mês no Pro)
+9. Validação com usuários ANTES do kickoff (5 entrevistas com protótipo Figma)
+
+#### 📋 Próximos Passos
+1. ⏳ Galvão responde as 9 perguntas críticas
+2. ⏳ Validação com usuários (5 entrevistas com protótipo)
+3. ⏳ Kickoff técnico (03/09+) com escopo definido
+4. ⏳ Tech lead (Tony Stark?) começa arquitetura com MVP realista
+
