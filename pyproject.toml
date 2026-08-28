@@ -1,0 +1,82 @@
+[project]
+name = "team-iron-graphify"
+version = "0.1.0"
+description = "Graphify integration for Team Iron Solutions — knowledge graphs for code understanding"
+readme = "docs/GRAPHIFY-SETUP.md"
+requires-python = ">=3.12"
+authors = [
+    { name = "Team Iron Solutions", email = "tech@teamironsolutions.com.br" }
+]
+license = { text = "MIT" }
+keywords = ["graphify", "knowledge-graph", "code-analysis", "ast"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Natural Language :: Portuguese (Brazilian)",
+    "Operating System :: MacOS",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+
+dependencies = [
+    "graphifyy>=0.9.50",
+    "tree-sitter>=0.20.0",
+    "ollama>=0.1.0",
+    "openai>=1.0.0",  # Required for Ollama semantic extraction
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-cov>=4.1.0",
+    "black>=23.7.0",
+    "ruff>=0.0.280",
+]
+
+[project.urls]
+Repository = "https://github.com/Team-Iron-Solutions/team-iron-workspace"
+Documentation = "https://github.com/Team-Iron-Solutions/team-iron-workspace/tree/develop/docs/GRAPHIFY-SETUP.md"
+Issues = "https://github.com/Team-Iron-Solutions/team-iron-workspace/issues"
+
+# tool.uv is auto-configured; see uv.lock for pinned versions
+
+[tool.black]
+line-length = 100
+target-version = ["py312"]
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | build
+  | dist
+  | graphify-env
+  | graphify-out*
+)/
+'''
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+exclude = [
+    ".git",
+    "__pycache__",
+    ".venv",
+    "graphify-env",
+    "graphify-out*",
+    "node_modules",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+addopts = "--cov=. --cov-report=html --cov-report=term-missing"

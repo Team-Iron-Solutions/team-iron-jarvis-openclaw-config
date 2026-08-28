@@ -1,0 +1,27 @@
+{
+  "timestamp": "2026-08-16 16:36:15",
+  "date": "20260816",
+  "bridge": {
+    "health": false,
+    "status": "DOWN",
+    "uptime": "0:00:00",
+    "pid": 0,
+    "processing": null
+  },
+  "compression": {
+    "ratio": "N/A",
+    "status": "UNKNOWN"
+  },
+  "system": {
+    "log_size": "4.0K",
+    "memory": ""
+  },
+  "errors": {
+    "count": 0
+0,
+    "caveman_logs": 0
+0,
+    "status": "OK"
+  },
+  "overall_status": "ISSUES"
+}
