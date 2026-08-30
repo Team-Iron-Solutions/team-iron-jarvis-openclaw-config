@@ -1,0 +1,115 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: openjarvis-api
+  namespace: production
+  labels:
+    app: openjarvis
+    tier: api
+    version: "1.0"
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: openjarvis
+      tier: api
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: openjarvis
+        tier: api
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8000"
+        prometheus.io/path: "/metrics"
+    spec:
+      serviceAccountName: openjarvis-api-sa
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        fsGroup: 2000
+      containers:
+        - name: api
+          image: ghcr.io/teamiron/openjarvis:latest
+          ports:
+            - containerPort: 8000
+              name: http
+          env:
+            - name: OPENJARVIS_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: openjarvis-secrets
+                  key: api-key
+            - name: OLLAMA_HOST
+              value: "http://ollama-svc:11434"
+          # ⚠️ ISSUE: No resource requests/limits defined — violates LimitRange
+          # resources:
+          #   requests:
+          #     cpu: "250m"
+          #     memory: "512Mi"
+          #   limits:
+          #     cpu: "1"
+          #     memory: "1Gi"
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 10
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            failureThreshold: 3
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: openjarvis-api-hpa
+  namespace: production
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: openjarvis-api
+  minReplicas: 3
+  maxReplicas: 20
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 80
+  # ⚠️ ISSUE: No stabilizationWindowSeconds — causes flapping
+  # behavior:
+  #   scaleDown:
+  #     stabilizationWindowSeconds: 300
+  #   scaleUp:
+  #     stabilizationWindowSeconds: 60
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: openjarvis-api-pdb
+  namespace: production
+spec:
+  # ⚠️ ISSUE: minAvailable: 3 with maxReplicas: 3 = impossible to drain
+  minAvailable: 3
+  selector:
+    matchLabels:
+      app: openjarvis
+      tier: api

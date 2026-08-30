@@ -1,39 +1,53 @@
-# Secrets - NUNCA commitar!
+# Generated metrics (phase 3, 4, 5)
+metrics/
+phase3-metrics/
+phase4-metrics/
+phase5-metrics/
+
+# Daily notes (personal logs)
+memory/
+
+# Local environment
 .env
 .env.local
-.env.*.local
-gateway.token
-.github-token
-openclaw.json        # Local config com secrets
-*.token
-*.key
-*.pem
+*.local
 
-# Node/packages
-node_modules/
-package-lock.json
-yarn.lock
-
-# OS
-.DS_Store
+# IDE
 .vscode/
 .idea/
 *.swp
 *.swo
+*~
 
-# Sensíveis
-auth/
-secrets/
-.openclaw/.github-token
-.openclaw/*.token
-
-# Runtime
-.openclawrc
-state/
-logs/
-*.log
-
-# Build
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
 dist/
 build/
+
+# Node modules
+node_modules/
+
+# Obsidian vault (personal documentation)
+obsidian-vault/
+
+# Generated reports (keep in docs, not root)
+*.tmp
+*.log
+
+# Cache
 .cache/
+.pytest_cache/
+
+# Sensitive data
+*.key
+*.pem
+secrets/
+
+# Build artifacts
+target/
+*.o
+*.a
+*.so

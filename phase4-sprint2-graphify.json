@@ -1,0 +1,63 @@
+{
+  "timestamp": "2026-08-30T11:26:41.514282",
+  "phase": "graphify",
+  "results": [
+    {
+      "review_key": "sql-injection-easy",
+      "title": "SQL Injection Detection (Easy)",
+      "complexity": "easy",
+      "input_tokens": 400,
+      "output_tokens": 820,
+      "total_tokens": 1220,
+      "quality_score": 4.8,
+      "latency_ms": 1900
+    },
+    {
+      "review_key": "n-plus-one-medium",
+      "title": "N+1 Query Optimization (Medium)",
+      "complexity": "medium",
+      "input_tokens": 700,
+      "output_tokens": 1150,
+      "total_tokens": 1850,
+      "quality_score": 4.6,
+      "latency_ms": 2300
+    },
+    {
+      "review_key": "async-error-handling-medium",
+      "title": "Async Error Handling (Medium)",
+      "complexity": "medium",
+      "input_tokens": 650,
+      "output_tokens": 1050,
+      "total_tokens": 1700,
+      "quality_score": 4.5,
+      "latency_ms": 2100
+    },
+    {
+      "review_key": "performance-bottleneck-hard",
+      "title": "Performance Bottleneck (Hard)",
+      "complexity": "hard",
+      "input_tokens": 950,
+      "output_tokens": 1400,
+      "total_tokens": 2350,
+      "quality_score": 4.4,
+      "latency_ms": 2600
+    },
+    {
+      "review_key": "architecture-decision-very-hard",
+      "title": "Architecture Decision (Very Hard)",
+      "complexity": "very_hard",
+      "input_tokens": 1200,
+      "output_tokens": 1650,
+      "total_tokens": 2850,
+      "quality_score": 4.3,
+      "latency_ms": 3100
+    }
+  ],
+  "summary": {
+    "total_reviews": 5,
+    "total_tokens": 9970,
+    "avg_tokens_per_review": 1994,
+    "avg_quality_score": 4.52,
+    "avg_latency_ms": 2400
+  }
+}

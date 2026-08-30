@@ -1,0 +1,116 @@
+name: Deploy OpenJarvis — Production
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Target environment"
+        required: true
+        default: "staging"
+        type: choice
+        options: [staging, production]
+
+env:
+  AWS_REGION: us-east-1
+  ECR_REGISTRY: 123456789.dkr.ecr.us-east-1.amazonaws.com
+  ECR_REPOSITORY: openjarvis
+  EKS_CLUSTER: team-iron-prod-eks
+  TF_WORKSPACE: production
+
+# ⚠️ ISSUE: No concurrency group — multiple workflows can run in parallel
+# concurrency:
+#   group: deploy-${{ github.ref }}
+#   cancel-in-progress: false
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    # ⚠️ ISSUE: No timeout set — job can run indefinitely on hang
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt -r requirements-dev.txt
+
+      - name: Run tests
+        run: pytest tests/ -v --tb=short
+        env:
+          # ⚠️ ISSUE: Secrets echoed in logs if pytest prints env vars
+          OPENJARVIS_API_KEY: ${{ secrets.OPENJARVIS_API_KEY }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    outputs:
+      image-tag: ${{ steps.meta.outputs.tags }}
+      image-digest: ${{ steps.build-push.outputs.digest }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build, tag, and push image
+        id: build-push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: deploy/docker/Dockerfile
+          push: true
+          tags: ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  terraform-plan:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.7.0"
+
+      - name: Terraform Init
+        run: terraform init
+        working-directory: infra/
+
+      - name: Terraform Plan
+        run: terraform plan -out=tfplan
+        working-directory: infra/
+        env:
+          TF_VAR_image_tag: ${{ github.sha }}
+
+  deploy-production:
+    needs: [build, terraform-plan]
+    runs-on: ubuntu-latest
+    environment: production
+    # ⚠️ ISSUE: No approval gate configured in environment settings
+    # Should require manual approval for production deployments
+    steps:
+      - name: Deploy to EKS
+        run: |
+          aws eks update-kubeconfig --name ${{ env.EKS_CLUSTER }} --region ${{ env.AWS_REGION }}
+          kubectl set image deployment/openjarvis-api \
+            api=${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ github.sha }} \
+            -n production
+          kubectl rollout status deployment/openjarvis-api -n production --timeout=300s
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
