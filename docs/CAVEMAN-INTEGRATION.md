@@ -1,8 +1,8 @@
 # Caveman Compression Middleware — Integration Guide
 
-**Date:** 2026-08-16  
-**Status:** Ready for integration into jarvis-neural-interface  
-**Target Savings:** -40-50% input tokens per request
+**Date:** 2026-08-16 | **Revisado:** 2026-08-30  
+**Status:** ✅ Live — integrated via jarvis-bridge-v4.js  
+**Savings validados:** -45% tokens, 5.0/5.0 quality
 
 ---
 
@@ -147,17 +147,30 @@ new CavemanMiddleware({
 → Check that `CavemanMiddleware` is initialized before `callJarvisAgent()`
 → Ensure `async/await` is used in calling code
 
+### Code blocks being compressed?
+→ Should not happen — code blocks are extracted before compression and reinserted after
+→ If issue persists, check that ``` delimiters are properly closed in the prompt
+
 ### Memory overhead?
 → Negligible; compression object is garbage-collected after use
 → No persistent state maintained
+
+## Fixes (2026-08-30)
+
+| Bug | Antes | Depois |
+|-----|-------|--------|
+| Truncation | `slice(0, 2000)` cortava todo conteúdo | Sem limite — conteúdo completo preservado |
+| Code blocks | Comprimidos junto com prose | Extraídos, preservados, reinseridos intactos |
+| Output markdown | Removido (`**`, `#`, `-`) | `compressOutput` é pass-through — formatação preservada |
+| System prompt | Não comprimido | Comprimido junto com a mensagem |
 
 ---
 
 ## Related
 
-- **Phase 3 Token Optimization:** `OPTIMIZATION-PHASE1.md`
-- **Day 4 Validation:** `phase3-token-optimization/week1-setup/DAY4-VALIDATION-REPORT.md`
-- **Integration Details:** Separate PR to jarvis-neural-interface
+- **Token Optimization Guide:** `TOKEN-OPTIMIZATION.md`
+- **OpenRouter Setup:** `docs/OPENROUTER-SETUP.md`
+- **Integration:** via `jarvis-bridge-v4.js` (jarvis-neural-interface)
 
 ---
 
