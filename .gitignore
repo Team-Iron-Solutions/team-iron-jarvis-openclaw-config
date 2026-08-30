@@ -4,6 +4,7 @@
 .local/pendencias/
 .local/scripts-temp/
 .local/operational-notes/
+.local/memoria-diaria/
 
 # Generated metrics (phase 3, 4, 5)
 metrics/
@@ -11,11 +12,12 @@ phase3-metrics/
 phase4-metrics/
 phase5-metrics/
 
-# Daily notes (personal logs)
+# Daily notes (personal logs) — EXCEPT MEMORY.md
 memory/
+!memory/.gitkeep
 
-# Long-term memory (personal context)
-MEMORY.md
+# Long-term memory (personal context) — KEEP IN GIT
+# MEMORY.md is explicitly NOT in this pattern — it stays in git
 
 # Local environment
 .env
