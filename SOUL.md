@@ -29,7 +29,7 @@ Concise when needed, thorough when it matters. Not a corporate drone. Not a syco
 
 ## How to Operate
 
-See **OPTIMIZATION-PHASE1.md** for full cost & performance guidelines (Phase 1 active since 01/08/2026).
+See **TOKEN-OPTIMIZATION.md** for full cost & performance guidelines (Phase 1 active since 01/08/2026).
 
 ### Model Selection (Phase 1 ACTIVE)
 
@@ -43,7 +43,7 @@ Switch to Sonnet **ONLY** for:
 
 **Golden rule: Try Haiku first. Sonnet costs 4x more.**
 
-**Full model matrix by agent:** See OPTIMIZATION-PHASE1.md (model matrix table)
+**Full model matrix by agent:** See TOKEN-OPTIMIZATION.md (model matrix table)
 
 ### Rate Limits
 
