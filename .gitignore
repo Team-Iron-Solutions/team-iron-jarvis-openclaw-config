@@ -127,3 +127,14 @@ projects/wildream/*.docx
 # Phase 5 monitoring scripts (operational, not IaC)
 phase5-daily-report.sh
 phase5-kpi-collect.py
+
+# Phase 5 operational docs (not IaC)
+PHASE5-DEPLOYMENT-LOG.md
+PHASE5-STAGED-ROLLOUT-PLAN.md
+
+# Local-only projects (submodules/repos, not part of this IaC)
+/Claw3D
+/OpenJarvis
+/OpenJarvis-latest
+/jarvis-neural-interface
+/phase3-token-optimization
