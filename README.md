@@ -1,331 +1,202 @@
-# 🦾 OpenClaw Configuration - Team Iron Solutions
+# 🦾 Team Iron Solutions — OpenClaw Config
 
-Infrastructure as Code para replicar o ambiente completo de OpenClaw, agentes, playbooks e MCP servers da Team Iron Solutions em qualquer servidor.
+> Infrastructure as Code para replicar o ambiente completo de OpenClaw com 10 agentes, economia de tokens de 73-85% e integração de knowledge graphs.
 
-**Status:** ✅ Production-ready (agosto 2026)
-
----
-
-## 🎯 O que está incluído
-
-- ✅ **10 Agentes Configurados** (Tony Stark, Bruce Banner, Steve Rogers, etc.)
-- ✅ **Playbooks de Excelência** — padrões operacionais para cada agente
-- ✅ **Workspace Completo** — SOUL.md, AGENTS.md, MEMORY.md, documentação
-- ✅ **3 Servidores MCP** — memory, filesystem, github
-- ✅ **Script de Setup Automatizado** — replica tudo em minutos
-- ✅ **Infrastructure as Code** — versione e replique com segurança
+**Status:** ✅ Production-ready | **Última atualização:** 30/08/2026
 
 ---
 
 ## 🚀 Quick Start
 
-### 1. Clone o repositório
 ```bash
-git clone https://github.com/teamironsolutions/openclaw-config.git
-cd openclaw-config
-chmod +x setup.sh
+# 1. Clone
+git clone https://github.com/Team-Iron-Solutions/team-iron-jarvis-openclaw-config.git \
+  ~/.openclaw/workspace
+
+# 2. Copiar config template
+cp ~/.openclaw/workspace/config/openclaw.template.json ~/.openclaw/openclaw.json
+# Edite ~/.openclaw/openclaw.json e substitua os placeholders
+
+# 3. Setup completo
+cd ~/.openclaw/workspace
+bash setup.sh
+bash scripts/setup-graphify.sh
+
+# 4. Configurar OpenRouter (fallback de modelos)
+echo "sk-or-v1-..." | openclaw models auth paste-api-key --provider openrouter
+
+# 5. Iniciar Gateway
+openclaw gateway start
+openclaw status
 ```
 
-### 2. Execute setup (automatizado)
-```bash
-./setup.sh
-```
+📖 **Guia detalhado:** [`SETUP.md`](./SETUP.md) — instalação completa em 30-45 min.
 
-**O que ele faz:**
-- ✅ Verifica Node.js / npm
-- ✅ Instala OpenClaw globalmente
-- ✅ Cria `~/.openclaw/workspace`
-- ✅ Copia arquivos de configuração
-- ✅ Configura 3 servidores MCP
-- ✅ Valida setup
+---
 
-### 3. Configure Secrets (fora do repo)
+## 🎯 O que está incluído
 
-**GitHub Token** — necessário para MCP GitHub:
-```bash
-# 1. Crie em https://github.com/settings/tokens/new
-#    Permissões: repo, read:org, user:email
-# 2. Configure:
-export GITHUB_TOKEN=ghp_...
-# 3. Setup MCP:
-openclaw mcp add github \
-  --command npx --arg -y --arg @modelcontextprotocol/server-github \
-  --env GITHUB_TOKEN="$GITHUB_TOKEN"
-```
+### Agentes (10)
 
-**Gateway Token** (se usar remote gateway):
-```bash
-export GATEWAY_TOKEN=your_token_here
-```
+| Agente | Alter Ego | Papel | Modelo |
+|--------|-----------|-------|--------|
+| **Jarvis** | Iron Man AI | CTO / Orquestrador | Haiku |
+| **Tony Stark** | Iron Man | Backend Node.js + Tech Lead | Haiku |
+| **Bruce Banner** | Hulk | Backend Python | Haiku |
+| **Steve Rogers** | Capitão América | Arquiteto de Software | **Sonnet** |
+| **Stephen Strange** | Doutor Estranho | Product Manager | **Sonnet** |
+| **Visão** | Vision | Data Engineer / IA | Haiku |
+| **Wanda Maximoff** | Feiticeira Escarlate | Product Designer / UX | Haiku |
+| **T'Challa** | Pantera Negra | SRE Engineer | Haiku |
+| **Scott Lang** | Homem-Formiga | Flutter Developer | Haiku |
+| **Natasha Romanoff** | Viúva Negra | QA Engineer | Haiku |
+| **Peter Parker** | Homem-Aranha | Content / Social Media | Haiku |
 
-### 4. Inicie o Gateway
-```bash
-openclaw gateway --port 18789
-# ou em background:
-openclaw gateway --port 18789 > /tmp/openclaw.log 2>&1 &
-```
+### Token Optimization (73-85% economia)
 
-### 5. Teste um agente
-```bash
-openclaw agent --agent main --message "Olá, qual é meu nome?"
-```
+| Fase | Tecnologia | Economia | Status |
+|------|-----------|----------|--------|
+| **Phase 1** | Haiku default, Sonnet seletivo | -60% vs all-Sonnet | ✅ Ativo |
+| **Phase 2** | OpenRouter fallback chain | -75-95% quando acionado | ✅ Configurado |
+| **Phase 3** | Caveman compression middleware | -45% por request | ✅ Live |
+| **Phase 4** | Graphify knowledge graphs | -43 a -90% em code review | ✅ Live |
+
+📖 **Detalhes:** [`TOKEN-OPTIMIZATION.md`](./TOKEN-OPTIMIZATION.md)
 
 ---
 
 ## 📁 Estrutura do Repositório
 
 ```
-.
-├── README.md                      # Este arquivo
-├── setup.sh                       # Script de replicação (automation)
-├── .gitignore                     # Segurança (sem secrets!)
+~/.openclaw/workspace/
 │
-├── config/
-│   ├── openclaw.template.json     # Template config (sem secrets)
-│   └── mcp/                       # Definições MCP
+├── 📄 AGENTS.md              ← Instruções do agente (lido pelo Gateway)
+├── 📄 SOUL.md                ← Personalidade e tom
+├── 📄 MEMORY.md              ← Memória de longo prazo
+├── 📄 IDENTITY.md            ← Nome, emoji, avatar
+├── 📄 TOOLS.md               ← Notas de ferramentas locais
+├── 📄 USER.md                ← Contexto do usuário (Galvão)
+├── 📄 HEARTBEAT.md           ← Checklist de heartbeat
 │
-└── workspace/
-    ├── SOUL.md                    # Identidade & tom (Jarvis)
-    ├── AGENTS.md                  # Workspace overview
-    ├── MEMORY.md                  # Long-term memory (durable)
-    ├── IDENTITY.md                # Avatar & appearance
-    ├── USER.md                    # Quem é Galvão
-    ├── TOOLS.md                   # Notas locais (cameras, hosts, etc)
-    │
-    └── playbooks/
-        ├── TONY-STARK-EXCELLENCE-PLAYBOOK.md
-        ├── BRUCE-BANNER-EXCELLENCE-PLAYBOOK.md
-        ├── STEVE-ROGERS-EXCELLENCE-PLAYBOOK.md
-        ├── STEPHEN-STRANGE-EXCELLENCE-PLAYBOOK.md
-        ├── VISAO-DATA-IA-EXCELLENCE-PLAYBOOK.md
-        ├── WANDA-MAXIMOFF-EXCELLENCE-PLAYBOOK.md
-        ├── TCHALLA-SRE-EXCELLENCE-PLAYBOOK.md
-        ├── SCOTT-LANG-EXCELLENCE-PLAYBOOK.md
-        ├── NATASHA-ROMANOFF-EXCELLENCE-PLAYBOOK.md
-        └── PETER-PARKER-EXCELLENCE-PLAYBOOK.md
+├── 📄 SETUP.md               ← Guia de instalação em nova máquina
+├── 📄 TOKEN-OPTIMIZATION.md  ← Estratégia completa de economia de tokens
+├── 📄 README.md              ← Este arquivo
+│
+├── 🔧 caveman-middleware-esm.js  ← Phase 3: compressão de contexto (-45%)
+├── 🔧 setup.sh                   ← Script de setup geral
+├── 🔧 package-lock.json          ← Lock Node.js
+├── 🔧 pyproject.toml             ← Dependências Python (Graphify)
+├── 🔧 uv.lock                    ← Lock Python
+│
+├── 📁 agents-workspaces/     ← Playbooks por agente
+│   ├── tony/EXCELLENCE-PLAYBOOK.md
+│   ├── bruce/EXCELLENCE-PLAYBOOK.md
+│   ├── steve/EXCELLENCE-PLAYBOOK.md
+│   ├── stephen/EXCELLENCE-PLAYBOOK.md
+│   ├── visao/EXCELLENCE-PLAYBOOK.md
+│   ├── wanda/EXCELLENCE-PLAYBOOK.md
+│   ├── tchalla/EXCELLENCE-PLAYBOOK.md
+│   ├── scott/EXCELLENCE-PLAYBOOK.md
+│   ├── natasha/EXCELLENCE-PLAYBOOK.md
+│   └── peter/EXCELLENCE-PLAYBOOK.md
+│
+├── 📁 config/
+│   └── openclaw.template.json    ← Template de configuração (sem secrets)
+│
+├── 📁 docs/
+│   ├── CAVEMAN-INTEGRATION.md    ← Phase 3: guia de integração
+│   ├── OPENROUTER-SETUP.md       ← Phase 2: setup OpenRouter
+│   ├── GRAPHIFY-OVERVIEW.md      ← Phase 4: visão geral
+│   ├── GRAPHIFY-SETUP.md         ← Phase 4: instalação
+│   ├── GRAPHIFY-CHEATSHEET.md    ← Phase 4: referência rápida
+│   ├── AGENTS-CAPABILITIES.md    ← Capacidades dos agentes
+│   ├── adr/                      ← Architecture Decision Records
+│   └── wiki/                     ← Wiki do projeto
+│
+└── 📁 scripts/
+    └── setup-graphify.sh         ← Setup automatizado do Graphify
 ```
 
 ---
 
-## 🔐 Segurança & Secrets
+## ⚙️ Configuração
 
-⚠️ **NUNCA commite secrets!** O `.gitignore` protege:
-- `openclaw.json` (local)
-- `.github-token`
-- `*.token` files
-- `.env*`
+### Template (`config/openclaw.template.json`)
 
-**Setup Seguro:**
-1. Clone repositório ✅
-2. Rode `setup.sh` (cria config vazio)
-3. Adicione secrets em `~/.openclaw/openclaw.json` LOCALMENTE
-4. Configure env vars: `export GITHUB_TOKEN=...`
+Copie para `~/.openclaw/openclaw.json` e substitua os placeholders:
 
----
-
-## 🔌 MCP Servers Configurados
-
-| Servidor | Ferramentas | Uso |
-|----------|-------------|-----|
-| **memory** | 9 | Contexto persistente, grafo de conhecimento |
-| **filesystem** | 6 | Ler/escrever código, explorar workspace |
-| **github** | 26 | Repos, issues, PRs, code search, commits |
-
-### Adicionar mais servidores
-
-```bash
-# PostgreSQL (data queries)
-openclaw mcp add postgres \
-  --command npx --arg -y --arg @modelcontextprotocol/server-postgres \
-  --env DATABASE_URL="postgresql://user:pass@localhost/db"
-
-# Slack (team messages)
-openclaw mcp add slack \
-  --command npx --arg -y --arg @modelcontextprotocol/server-slack \
-  --env SLACK_BOT_TOKEN="xoxb-..."
-
-# Usar novo servidor
-openclaw mcp probe postgres --json
-```
-
----
-
-## 👥 10 Agentes Pré-configurados
-
-Cada agente tem seu próprio **workspace**, **identidade**, **playbook de excelência** e **responsabilidades específicas**:
-
-| Agent | Alter Ego | Role | Stack |
-|-------|-----------|------|-------|
-| Tony Stark | Iron Man | Backend Node.js + Tech Lead | Node.js, API design, code review |
-| Bruce Banner | Hulk | Backend Python | Python, data analysis, optimization |
-| Steve Rogers | Capitão América | Architect | System design, CTO-level strategy |
-| Stephen Strange | Doutor Estranho | Product Manager | Roadmap, requirements, vision |
-| Visão | Vision | Data Engineer / IA | Pipelines, analytics, ML |
-| Wanda Maximoff | Scarlet Witch | Product Designer / UX | UI/UX, design system, research |
-| T'Challa | Black Panther | SRE Engineer | Infrastructure, deployment, LGPD |
-| Scott Lang | Ant-Man | Flutter Developer | Mobile, cross-platform, web |
-| Natasha Romanoff | Black Widow | QA Engineer | Testing, automation, quality gates |
-| Peter Parker | Spider-Man | Content / Social Media | Instagram, blog, storytelling |
-
-**Cada um tem:**
-- `workspace/<NAME>/EXCELLENCE-PLAYBOOK.md` — padrões de operação
-- `workspace/<NAME>/IDENTITY.md` — quem é esse agente
-- `workspace/<NAME>/USER.md` — contexto de trabalho
-- MCP access para memory, filesystem, github
-
----
-
-## 📊 Validar Setup
-
-```bash
-# Ver tudo configurado
-openclaw mcp status
-
-# Provar que funciona (conecta aos servers)
-openclaw mcp doctor --probe
-
-# Testar um agente
-openclaw agent --agent tony-stark --message "Revise este código Node.js"
-
-# Ver log do Gateway
-tail -f /tmp/openclaw.log
-```
-
----
-
-## 🔄 Atualizar Configuração
-
-Após pull de updates:
-
-```bash
-# Re-run setup (non-destructive)
-./setup.sh
-
-# Ou setup específico:
-openclaw mcp reload          # Recarrega servidores MCP
-openclaw skills load         # Recarrega skills
-openclaw gateway restart     # Reinicia gateway
-```
-
----
-
-## 🐛 Troubleshooting
-
-### OpenClaw command not found
-```bash
-npm install -g openclaw
-```
-
-### MCP server failed to start
-```bash
-openclaw mcp doctor --probe --verbose
-# Verifica cada servidor
-```
-
-### GitHub token invalid
-```bash
-# 1. Verifica se token é válido em https://github.com/settings/tokens
-# 2. Recria token se expirou
-# 3. Re-configura:
-export GITHUB_TOKEN=ghp_novo...
-openclaw mcp unset github
-openclaw mcp add github --command npx --arg -y --arg @modelcontextprotocol/server-github --env GITHUB_TOKEN="$GITHUB_TOKEN"
-```
-
-### Gateway won't start on port
-```bash
-# Use port diferente:
-openclaw gateway --port 28789
-
-# Ou libera porta:
-lsof -i :18789
-kill -9 <PID>
-```
-
----
-
-## 🤝 Customização
-
-### Mudar modelo padrão
-
-Edit `config/openclaw.template.json`:
 ```json
-"agents": {
-  "defaults": {
-    "model": "anthropic/claude-sonnet-4-6"  // Troca haiku por sonnet
+{
+  "env": {
+    "OPENROUTER_API_KEY": "sk-or-v1-..."
+  },
+  "agents": {
+    "defaults": {
+      "model": {
+        "primary": "anthropic/claude-haiku-4-5",
+        "fallbacks": [
+          "openrouter/anthropic/claude-haiku-4-5",
+          "openrouter/auto",
+          "google/gemini-3.1-pro-preview"
+        ]
+      }
+    }
   }
 }
 ```
 
-### Adicionar novo agente
+### MCP Servers
 
-1. Cria workspace:
-   ```bash
-   mkdir -p workspace/<NOME>
-   ```
+| Servidor | Ferramentas | Uso |
+|----------|-------------|-----|
+| **memory** | 9 | Contexto persistente, knowledge graph |
+| **filesystem** | 6 | Ler/escrever arquivos |
+| **github** | 26 | Repos, PRs, issues, code search |
 
-2. Copia template:
-   ```bash
-   cp workspace/SOUL.md workspace/<NOME>/
-   ```
+---
 
-3. Edita identidade:
-   ```bash
-   # Edita workspace/<NOME>/IDENTITY.md
-   ```
+## 🔐 Segurança
 
-4. Registra em `config/openclaw.template.json`:
-   ```json
-   {
-     "id": "novo-agent",
-     "name": "Novo Agent",
-     "description": "..."
-   }
-   ```
+**Nunca commitar secrets!** O `.gitignore` protege:
+- `~/.openclaw/openclaw.json` (config local com keys)
+- `.env`, `.env.local`
+- `memory/` (daily notes pessoais)
+- `obsidian-vault/` (wiki pessoal)
+- `python-code-reviews/` (artefatos Graphify)
 
-### Conectar outro servidor
-
-**Remote Gateway** (outro host):
 ```bash
-openclaw mcp serve --url wss://remote-gateway:18789 --token-file ~/.openclaw/gateway.token
+# Secrets ficam APENAS em:
+~/.openclaw/openclaw.json   ← local, nunca no git
 ```
 
 ---
 
-## 📚 Referências
+## 📚 Documentação
 
-- **OpenClaw Docs:** https://docs.openclaw.ai
-- **MCP Protocol:** https://modelcontextprotocol.io
-- **GitHub API:** https://docs.github.com/en/rest
-
----
-
-## 📝 Versionamento
-
-Versão dessa config: **2026-08-05**
-
-Updates:
-- ✅ 2026-08-05: MCP GitHub integrado
-- ✅ 2026-08-04: 10 agentes completos + playbooks
-- ✅ 2026-08-01: Phase 1 economia de tokens (Haiku default)
-- ✅ 2026-07-18: Voice & HUD fully integrated
+| Documento | Conteúdo |
+|-----------|---------|
+| [`SETUP.md`](./SETUP.md) | Instalação completa em nova máquina |
+| [`TOKEN-OPTIMIZATION.md`](./TOKEN-OPTIMIZATION.md) | Estratégia de economia de tokens |
+| [`docs/OPENROUTER-SETUP.md`](./docs/OPENROUTER-SETUP.md) | Configurar OpenRouter |
+| [`docs/CAVEMAN-INTEGRATION.md`](./docs/CAVEMAN-INTEGRATION.md) | Integrar Caveman middleware |
+| [`docs/GRAPHIFY-SETUP.md`](./docs/GRAPHIFY-SETUP.md) | Instalar e configurar Graphify |
+| [`docs/GRAPHIFY-OVERVIEW.md`](./docs/GRAPHIFY-OVERVIEW.md) | Como o Graphify funciona |
+| [`docs/adr/`](./docs/adr/) | Architecture Decision Records |
 
 ---
 
-## 💬 Suporte
+## 📊 Histórico de Versões
 
-Problemas? Documentação completa em: `/Users/teamironsolutions/.openclaw/workspace/`
-
-Ou consulte os agentes:
-```bash
-# Arquitetura
-openclaw agent --agent steve-rogers --message "Como replicar isso em 3 ambientes?"
-
-# Tech lead review
-openclaw agent --agent tony-stark --message "Isso tá bom pra production?"
-```
+| Data | Versão | O que mudou |
+|------|--------|-------------|
+| 30/08/2026 | v2.0.0 | Repo profissionalizado: cleanup completo, SETUP.md, OpenRouter, Caveman fixes, Graphify |
+| 16/08/2026 | v1.4.0 | Phase 3: Caveman middleware (-45% tokens) |
+| 04/08/2026 | v1.3.0 | 10 agentes completos + playbooks |
+| 01/08/2026 | v1.2.0 | Phase 1: Haiku default, economia de tokens |
+| 18/07/2026 | v1.1.0 | Voice + HUD integrados |
+| 15/07/2026 | v1.0.0 | Primeira versão — Jarvis online |
 
 ---
 
 **Built with ❤️ by Team Iron Solutions**  
-Transformamos Tecnologia em Vantagem Competitiva
+*Transformamos Tecnologia em Vantagem Competitiva*
