@@ -43,6 +43,14 @@ node_modules/
 # Obsidian vault (personal documentation)
 obsidian-vault/
 
+# Graphify artifacts (necessary locally for functioning, not in git)
+python-code-reviews/
+
+# Sprint execution artifacts (kept locally, not in git)
+PHASE*-SPRINT*-*TEMPLATE.md
+PHASE*-TIER*-*REPORT*.json
+PHASE*-*-SETUP*.json
+
 # Generated reports (keep in docs, not root)
 *.tmp
 *.log
