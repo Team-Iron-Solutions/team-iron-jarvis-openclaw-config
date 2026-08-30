@@ -1,3 +1,10 @@
+# Local workspace (personal, non-IaC)
+.local/
+.local/agenda/
+.local/pendencias/
+.local/scripts-temp/
+.local/operational-notes/
+
 # Generated metrics (phase 3, 4, 5)
 metrics/
 phase3-metrics/
@@ -6,6 +13,9 @@ phase5-metrics/
 
 # Daily notes (personal logs)
 memory/
+
+# Long-term memory (personal context)
+MEMORY.md
 
 # Local environment
 .env
