@@ -60,6 +60,11 @@ PHASE4-VALIDATION-CHECKLIST.md
 PHASE4-DOCUMENTATION-INDEX.md
 PHASE4-AGENT-PLAYBOOK.md
 
+# Research/Integration archived (in Obsidian)
+OLLAMA-GRAPHIFY-INTEGRATION.md
+PHASE3-SPIKE-LOG.md
+RESEARCH-METHODOLOGY.md
+
 # Generated reports (keep in docs, not root)
 *.tmp
 *.log
