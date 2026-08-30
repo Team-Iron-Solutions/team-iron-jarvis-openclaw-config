@@ -83,3 +83,36 @@ target/
 *.o
 *.a
 *.so
+
+# macOS system files (NEVER in git)
+.DS_Store
+**/.DS_Store
+
+# Daily notes (already listed, guarantee)
+memory/
+
+# Obsidian vault (personal wiki)
+obsidian-vault/
+
+# Graphify artifacts (local only)
+python-code-reviews/
+
+# State & backup files
+openclaw-workspace-state.json
+*.bak
+*.html.bak
+
+# Sprint operational artifacts
+SPRINT1-CHECKLIST.md
+SPRINT1-LIVE-STATUS.md
+phase4-sprint3-wanda-execution.py
+
+# Audit/cleanup docs (internal)
+GIT-AUDIT-CLEANUP*.md
+
+# Phase 5 state/metrics (generated)
+PHASE5-DAY1-METRICS.md
+PHASE5-MONITORING-STATE.json
+
+# Project docx files (use Obsidian)
+projects/wildream/*.docx
