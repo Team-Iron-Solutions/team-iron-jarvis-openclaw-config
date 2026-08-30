@@ -1,39 +1,85 @@
-# Secrets - NUNCA commitar!
+# Local workspace (personal, non-IaC)
+.local/
+.local/agenda/
+.local/pendencias/
+.local/scripts-temp/
+.local/operational-notes/
+.local/memoria-diaria/
+
+# Generated metrics (phase 3, 4, 5)
+metrics/
+phase3-metrics/
+phase4-metrics/
+phase5-metrics/
+
+# Daily notes (personal logs) — EXCEPT MEMORY.md
+memory/
+!memory/.gitkeep
+
+# Long-term memory (personal context) — KEEP IN GIT
+# MEMORY.md is explicitly NOT in this pattern — it stays in git
+
+# Local environment
 .env
 .env.local
-.env.*.local
-gateway.token
-.github-token
-openclaw.json        # Local config com secrets
-*.token
-*.key
-*.pem
+*.local
 
-# Node/packages
-node_modules/
-package-lock.json
-yarn.lock
-
-# OS
-.DS_Store
+# IDE
 .vscode/
 .idea/
 *.swp
 *.swo
+*~
 
-# Sensíveis
-auth/
-secrets/
-.openclaw/.github-token
-.openclaw/*.token
-
-# Runtime
-.openclawrc
-state/
-logs/
-*.log
-
-# Build
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
 dist/
 build/
+
+# Node modules
+node_modules/
+
+# Obsidian vault (personal documentation)
+obsidian-vault/
+
+# Graphify artifacts (necessary locally for functioning, not in git)
+python-code-reviews/
+
+# Sprint execution artifacts (kept locally, not in git)
+PHASE*-SPRINT*-*TEMPLATE.md
+PHASE*-TIER*-*REPORT*.json
+PHASE*-*-SETUP*.json
+
+# Phase 4 operational/status files (kept locally, not in git)
+PHASE4-STATUS*.md
+PHASE4-SESSION-SUMMARY*.md
+PHASE4-VALIDATION-CHECKLIST.md
+PHASE4-DOCUMENTATION-INDEX.md
+PHASE4-AGENT-PLAYBOOK.md
+
+# Research/Integration archived (in Obsidian)
+OLLAMA-GRAPHIFY-INTEGRATION.md
+PHASE3-SPIKE-LOG.md
+RESEARCH-METHODOLOGY.md
+
+# Generated reports (keep in docs, not root)
+*.tmp
+*.log
+
+# Cache
 .cache/
+.pytest_cache/
+
+# Sensitive data
+*.key
+*.pem
+secrets/
+
+# Build artifacts
+target/
+*.o
+*.a
+*.so
