@@ -118,8 +118,6 @@ PHASE5-MONITORING-STATE.json
 projects/wildream/*.docx
 
 # Root-level workspace files (canonical version in workspace/)
-/AGENTS.md
-/TOOLS.md
 
 # Cleanup documentation (internal)
 .CLEANUP-DOCUMENTATION.md
@@ -138,3 +136,6 @@ PHASE5-STAGED-ROLLOUT-PLAN.md
 /OpenJarvis-latest
 /jarvis-neural-interface
 /phase3-token-optimization
+
+# workspace/ subdirectory (files live at root per OpenClaw spec)
+workspace/
