@@ -51,6 +51,13 @@ PHASE*-SPRINT*-*TEMPLATE.md
 PHASE*-TIER*-*REPORT*.json
 PHASE*-*-SETUP*.json
 
+# Phase 4 operational/status files (kept locally, not in git)
+PHASE4-STATUS*.md
+PHASE4-SESSION-SUMMARY*.md
+PHASE4-VALIDATION-CHECKLIST.md
+PHASE4-DOCUMENTATION-INDEX.md
+PHASE4-AGENT-PLAYBOOK.md
+
 # Generated reports (keep in docs, not root)
 *.tmp
 *.log
