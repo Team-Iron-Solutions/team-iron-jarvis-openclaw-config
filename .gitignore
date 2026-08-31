@@ -1,39 +1,141 @@
-# Secrets - NUNCA commitar!
+# Local workspace (personal, non-IaC)
+.local/
+.local/agenda/
+.local/pendencias/
+.local/scripts-temp/
+.local/operational-notes/
+.local/memoria-diaria/
+
+# Generated metrics (phase 3, 4, 5)
+metrics/
+phase3-metrics/
+phase4-metrics/
+phase5-metrics/
+
+# Daily notes (personal logs) — EXCEPT MEMORY.md
+memory/
+!memory/.gitkeep
+
+# Long-term memory (personal context) — KEEP IN GIT
+# MEMORY.md is explicitly NOT in this pattern — it stays in git
+
+# Local environment
 .env
 .env.local
-.env.*.local
-gateway.token
-.github-token
-openclaw.json        # Local config com secrets
-*.token
-*.key
-*.pem
+*.local
 
-# Node/packages
-node_modules/
-package-lock.json
-yarn.lock
-
-# OS
-.DS_Store
+# IDE
 .vscode/
 .idea/
 *.swp
 *.swo
+*~
 
-# Sensíveis
-auth/
-secrets/
-.openclaw/.github-token
-.openclaw/*.token
-
-# Runtime
-.openclawrc
-state/
-logs/
-*.log
-
-# Build
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
 dist/
 build/
+
+# Node modules
+node_modules/
+
+# Obsidian vault (personal documentation)
+obsidian-vault/
+
+# Graphify artifacts (necessary locally for functioning, not in git)
+python-code-reviews/
+
+# Sprint execution artifacts (kept locally, not in git)
+PHASE*-SPRINT*-*TEMPLATE.md
+PHASE*-TIER*-*REPORT*.json
+PHASE*-*-SETUP*.json
+
+# Phase 4 operational/status files (kept locally, not in git)
+PHASE4-STATUS*.md
+PHASE4-SESSION-SUMMARY*.md
+PHASE4-VALIDATION-CHECKLIST.md
+PHASE4-DOCUMENTATION-INDEX.md
+PHASE4-AGENT-PLAYBOOK.md
+
+# Research/Integration archived (in Obsidian)
+OLLAMA-GRAPHIFY-INTEGRATION.md
+PHASE3-SPIKE-LOG.md
+RESEARCH-METHODOLOGY.md
+
+# Generated reports (keep in docs, not root)
+*.tmp
+*.log
+
+# Cache
 .cache/
+.pytest_cache/
+
+# Sensitive data
+*.key
+*.pem
+secrets/
+
+# Build artifacts
+target/
+*.o
+*.a
+*.so
+
+# macOS system files (NEVER in git)
+.DS_Store
+**/.DS_Store
+
+# Daily notes (already listed, guarantee)
+memory/
+
+# Obsidian vault (personal wiki)
+obsidian-vault/
+
+# Graphify artifacts (local only)
+python-code-reviews/
+
+# State & backup files
+openclaw-workspace-state.json
+*.bak
+*.html.bak
+
+# Sprint operational artifacts
+SPRINT1-CHECKLIST.md
+SPRINT1-LIVE-STATUS.md
+phase4-sprint3-wanda-execution.py
+
+# Audit/cleanup docs (internal)
+GIT-AUDIT-CLEANUP*.md
+
+# Phase 5 state/metrics (generated)
+PHASE5-DAY1-METRICS.md
+PHASE5-MONITORING-STATE.json
+
+# Project docx files (use Obsidian)
+projects/wildream/*.docx
+
+# Root-level workspace files (canonical version in workspace/)
+
+# Cleanup documentation (internal)
+.CLEANUP-DOCUMENTATION.md
+
+# Phase 5 monitoring scripts (operational, not IaC)
+phase5-daily-report.sh
+phase5-kpi-collect.py
+
+# Phase 5 operational docs (not IaC)
+PHASE5-DEPLOYMENT-LOG.md
+PHASE5-STAGED-ROLLOUT-PLAN.md
+
+# Local-only projects (submodules/repos, not part of this IaC)
+/Claw3D
+/OpenJarvis
+/OpenJarvis-latest
+/jarvis-neural-interface
+/phase3-token-optimization
+
+# workspace/ subdirectory (files live at root per OpenClaw spec)
+workspace/

@@ -1,4 +1,4 @@
-# 🦾 OpenClaw Configuration - Team Iron Solutions
+# 🦾 Team Iron Solutions — OpenClaw Config
 
 Infrastructure as Code para replicar o ambiente completo de OpenClaw, agentes, playbooks e MCP servers da Team Iron Solutions em qualquer servidor — macOS ou Linux/VPS.
 
@@ -21,56 +21,60 @@ Infrastructure as Code para replicar o ambiente completo de OpenClaw, agentes, p
 
 ## 🚀 Quick Start
 
-### 1. Clone o repositório
 ```bash
-git clone https://github.com/teamironsolutions/openclaw-config.git
-cd openclaw-config
-chmod +x setup.sh
+# 1. Clone
+git clone https://github.com/Team-Iron-Solutions/team-iron-jarvis-openclaw-config.git \
+  ~/.openclaw/workspace
+
+# 2. Copiar config template
+cp ~/.openclaw/workspace/config/openclaw.template.json ~/.openclaw/openclaw.json
+# Edite ~/.openclaw/openclaw.json e substitua os placeholders
+
+# 3. Setup completo
+cd ~/.openclaw/workspace
+bash setup.sh
+bash scripts/setup-graphify.sh
+
+# 4. Configurar OpenRouter (fallback de modelos)
+echo "sk-or-v1-..." | openclaw models auth paste-api-key --provider openrouter
+
+# 5. Iniciar Gateway
+openclaw gateway start
+openclaw status
 ```
 
-### 2. Execute setup (automatizado)
-```bash
-./setup.sh
-```
+📖 **Guia detalhado:** [`SETUP.md`](./SETUP.md) — instalação completa em 30-45 min.
 
-**O que ele faz:**
-- ✅ Verifica Node.js / npm
-- ✅ Instala OpenClaw globalmente
-- ✅ Cria `~/.openclaw/workspace`
-- ✅ Copia arquivos de configuração
-- ✅ Configura 3 servidores MCP
-- ✅ Valida setup
+---
 
-### 3. Configure Secrets (fora do repo)
+## 🎯 O que está incluído
 
-**GitHub Token** — necessário para MCP GitHub:
-```bash
-# 1. Crie em https://github.com/settings/tokens/new
-#    Permissões: repo, read:org, user:email
-# 2. Configure:
-export GITHUB_TOKEN=ghp_...
-# 3. Setup MCP:
-openclaw mcp add github \
-  --command npx --arg -y --arg @modelcontextprotocol/server-github \
-  --env GITHUB_TOKEN="$GITHUB_TOKEN"
-```
+### Agentes (10)
 
-**Gateway Token** (se usar remote gateway):
-```bash
-export GATEWAY_TOKEN=your_token_here
-```
+| Agente | Alter Ego | Papel | Modelo |
+|--------|-----------|-------|--------|
+| **Jarvis** | Iron Man AI | CTO / Orquestrador | Haiku |
+| **Tony Stark** | Iron Man | Backend Node.js + Tech Lead | Haiku |
+| **Bruce Banner** | Hulk | Backend Python | Haiku |
+| **Steve Rogers** | Capitão América | Arquiteto de Software | **Sonnet** |
+| **Stephen Strange** | Doutor Estranho | Product Manager | **Sonnet** |
+| **Visão** | Vision | Data Engineer / IA | Haiku |
+| **Wanda Maximoff** | Feiticeira Escarlate | Product Designer / UX | Haiku |
+| **T'Challa** | Pantera Negra | SRE Engineer | Haiku |
+| **Scott Lang** | Homem-Formiga | Flutter Developer | Haiku |
+| **Natasha Romanoff** | Viúva Negra | QA Engineer | Haiku |
+| **Peter Parker** | Homem-Aranha | Content / Social Media | Haiku |
 
-### 4. Inicie o Gateway
-```bash
-openclaw gateway --port 18789
-# ou em background:
-openclaw gateway --port 18789 > /tmp/openclaw.log 2>&1 &
-```
+### Token Optimization (73-85% economia)
 
-### 5. Teste um agente
-```bash
-openclaw agent --agent main --message "Olá, qual é meu nome?"
-```
+| Fase | Tecnologia | Economia | Status |
+|------|-----------|----------|--------|
+| **Phase 1** | Haiku default, Sonnet seletivo | -60% vs all-Sonnet | ✅ Ativo |
+| **Phase 2** | OpenRouter fallback chain | -75-95% quando acionado | ✅ Configurado |
+| **Phase 3** | Caveman compression middleware | -45% por request | ✅ Live |
+| **Phase 4** | Graphify knowledge graphs | -43 a -90% em code review | ✅ Live |
+
+📖 **Detalhes:** [`TOKEN-OPTIMIZATION.md`](./TOKEN-OPTIMIZATION.md)
 
 ---
 
@@ -217,85 +221,54 @@ openclaw gateway restart     # Reinicia gateway
 
 ---
 
-## 🐛 Troubleshooting
+## ⚙️ Configuração
 
-### OpenClaw command not found
-```bash
-npm install -g openclaw
-```
+### Template (`config/openclaw.template.json`)
 
-### MCP server failed to start
-```bash
-openclaw mcp doctor --probe --verbose
-# Verifica cada servidor
-```
+Copie para `~/.openclaw/openclaw.json` e substitua os placeholders:
 
-### GitHub token invalid
-```bash
-# 1. Verifica se token é válido em https://github.com/settings/tokens
-# 2. Recria token se expirou
-# 3. Re-configura:
-export GITHUB_TOKEN=ghp_novo...
-openclaw mcp unset github
-openclaw mcp add github --command npx --arg -y --arg @modelcontextprotocol/server-github --env GITHUB_TOKEN="$GITHUB_TOKEN"
-```
-
-### Gateway won't start on port
-```bash
-# Use port diferente:
-openclaw gateway --port 28789
-
-# Ou libera porta:
-lsof -i :18789
-kill -9 <PID>
-```
-
----
-
-## 🤝 Customização
-
-### Mudar modelo padrão
-
-Edit `config/openclaw.template.json`:
 ```json
-"agents": {
-  "defaults": {
-    "model": "anthropic/claude-sonnet-4-6"  // Troca haiku por sonnet
+{
+  "env": {
+    "OPENROUTER_API_KEY": "sk-or-v1-..."
+  },
+  "agents": {
+    "defaults": {
+      "model": {
+        "primary": "anthropic/claude-haiku-4-5",
+        "fallbacks": [
+          "openrouter/anthropic/claude-haiku-4-5",
+          "openrouter/auto",
+          "google/gemini-3.1-pro-preview"
+        ]
+      }
+    }
   }
 }
 ```
 
-### Adicionar novo agente
+### MCP Servers
 
-1. Cria workspace:
-   ```bash
-   mkdir -p workspace/<NOME>
-   ```
+| Servidor | Ferramentas | Uso |
+|----------|-------------|-----|
+| **memory** | 9 | Contexto persistente, knowledge graph |
+| **filesystem** | 6 | Ler/escrever arquivos |
+| **github** | 26 | Repos, PRs, issues, code search |
 
-2. Copia template:
-   ```bash
-   cp workspace/SOUL.md workspace/<NOME>/
-   ```
+---
 
-3. Edita identidade:
-   ```bash
-   # Edita workspace/<NOME>/IDENTITY.md
-   ```
+## 🔐 Segurança
 
-4. Registra em `config/openclaw.template.json`:
-   ```json
-   {
-     "id": "novo-agent",
-     "name": "Novo Agent",
-     "description": "..."
-   }
-   ```
+**Nunca commitar secrets!** O `.gitignore` protege:
+- `~/.openclaw/openclaw.json` (config local com keys)
+- `.env`, `.env.local`
+- `memory/` (daily notes pessoais)
+- `obsidian-vault/` (wiki pessoal)
+- `python-code-reviews/` (artefatos Graphify)
 
-### Conectar outro servidor
-
-**Remote Gateway** (outro host):
 ```bash
-openclaw mcp serve --url wss://remote-gateway:18789 --token-file ~/.openclaw/gateway.token
+# Secrets ficam APENAS em:
+~/.openclaw/openclaw.json   ← local, nunca no git
 ```
 
 ---
@@ -335,30 +308,30 @@ Servidor Central (Hostinger VPS / Mac mini)
 
 ## 📝 Versionamento
 
-Versão dessa config: **2026-08-05**
-
-Updates:
-- ✅ 2026-08-05: MCP GitHub integrado
-- ✅ 2026-08-04: 10 agentes completos + playbooks
-- ✅ 2026-08-01: Phase 1 economia de tokens (Haiku default)
-- ✅ 2026-07-18: Voice & HUD fully integrated
+| Documento | Conteúdo |
+|-----------|---------|
+| [`SETUP.md`](./SETUP.md) | Instalação completa em nova máquina |
+| [`TOKEN-OPTIMIZATION.md`](./TOKEN-OPTIMIZATION.md) | Estratégia de economia de tokens |
+| [`docs/OPENROUTER-SETUP.md`](./docs/OPENROUTER-SETUP.md) | Configurar OpenRouter |
+| [`docs/CAVEMAN-INTEGRATION.md`](./docs/CAVEMAN-INTEGRATION.md) | Integrar Caveman middleware |
+| [`docs/GRAPHIFY-SETUP.md`](./docs/GRAPHIFY-SETUP.md) | Instalar e configurar Graphify |
+| [`docs/GRAPHIFY-OVERVIEW.md`](./docs/GRAPHIFY-OVERVIEW.md) | Como o Graphify funciona |
+| [`docs/adr/`](./docs/adr/) | Architecture Decision Records |
 
 ---
 
-## 💬 Suporte
+## 📊 Histórico de Versões
 
-Problemas? Documentação completa em: `/Users/teamironsolutions/.openclaw/workspace/`
-
-Ou consulte os agentes:
-```bash
-# Arquitetura
-openclaw agent --agent steve-rogers --message "Como replicar isso em 3 ambientes?"
-
-# Tech lead review
-openclaw agent --agent tony-stark --message "Isso tá bom pra production?"
-```
+| Data | Versão | O que mudou |
+|------|--------|-------------|
+| 30/08/2026 | v2.0.0 | Repo profissionalizado: cleanup completo, SETUP.md, OpenRouter, Caveman fixes, Graphify |
+| 16/08/2026 | v1.4.0 | Phase 3: Caveman middleware (-45% tokens) |
+| 04/08/2026 | v1.3.0 | 10 agentes completos + playbooks |
+| 01/08/2026 | v1.2.0 | Phase 1: Haiku default, economia de tokens |
+| 18/07/2026 | v1.1.0 | Voice + HUD integrados |
+| 15/07/2026 | v1.0.0 | Primeira versão — Jarvis online |
 
 ---
 
 **Built with ❤️ by Team Iron Solutions**  
-Transformamos Tecnologia em Vantagem Competitiva
+*Transformamos Tecnologia em Vantagem Competitiva*

@@ -1,13 +1,23 @@
 {
   "meta": {
-    "version": "2026.8.5",
-    "description": "Team Iron Solutions - OpenClaw Configuration"
+    "version": "2026.8.30",
+    "description": "Team Iron Solutions - OpenClaw Configuration Template",
+    "notes": "Copy to ~/.openclaw/openclaw.json. Replace all ${...} placeholders with real values."
+  },
+  "env": {
+    "OPENROUTER_API_KEY": "${OPENROUTER_API_KEY}"
   },
   "agents": {
     "defaults": {
       "thinking": "medium",
-      "model": "anthropic/claude-haiku-4-5",
-      "fallbackModels": ["anthropic/claude-sonnet-4-6"],
+      "model": {
+        "primary": "anthropic/claude-haiku-4-5",
+        "fallbacks": [
+          "openrouter/anthropic/claude-haiku-4-5",
+          "openrouter/auto",
+          "google/gemini-3.1-pro-preview"
+        ]
+      },
       "skills": {
         "allowBundled": ["gemini", "peekaboo"],
         "load": {
@@ -19,59 +29,115 @@
       {
         "id": "main",
         "name": "Jarvis - CTO",
-        "description": "Tech Lead & Architecture"
+        "description": "Tech Lead & Architecture",
+        "model": {
+          "primary": "anthropic/claude-haiku-4-5",
+          "fallbacks": ["openrouter/anthropic/claude-haiku-4-5", "openrouter/auto"]
+        }
       },
       {
         "id": "tony-stark",
         "name": "Tony Stark",
-        "description": "Backend Node.js + Tech Lead"
+        "description": "Backend Node.js + Tech Lead",
+        "model": {
+          "primary": "anthropic/claude-haiku-4-5",
+          "fallbacks": ["openrouter/anthropic/claude-haiku-4-5", "openrouter/auto"]
+        }
       },
       {
         "id": "bruce-banner",
         "name": "Bruce Banner",
-        "description": "Backend Python"
+        "description": "Backend Python",
+        "model": {
+          "primary": "anthropic/claude-haiku-4-5",
+          "fallbacks": ["openrouter/anthropic/claude-haiku-4-5", "openrouter/auto"]
+        }
       },
       {
         "id": "steve-rogers",
         "name": "Steve Rogers",
-        "description": "Software Architect"
+        "description": "Software Architect",
+        "model": {
+          "primary": "anthropic/claude-sonnet-4-6",
+          "fallbacks": ["openrouter/anthropic/claude-sonnet-4-6"]
+        }
       },
       {
         "id": "stephen-strange",
         "name": "Stephen Strange",
-        "description": "Product Manager"
+        "description": "Product Manager",
+        "model": {
+          "primary": "anthropic/claude-sonnet-4-6",
+          "fallbacks": ["openrouter/anthropic/claude-sonnet-4-6"]
+        }
       },
       {
         "id": "visao",
         "name": "Visão",
-        "description": "Data Engineer / IA"
+        "description": "Data Engineer / IA",
+        "model": {
+          "primary": "anthropic/claude-haiku-4-5",
+          "fallbacks": ["openrouter/anthropic/claude-haiku-4-5", "openrouter/auto"]
+        }
       },
       {
         "id": "wanda-maximoff",
         "name": "Wanda Maximoff",
-        "description": "Product Designer / UX"
+        "description": "Product Designer / UX",
+        "model": {
+          "primary": "anthropic/claude-haiku-4-5",
+          "fallbacks": ["openrouter/anthropic/claude-haiku-4-5", "openrouter/auto"]
+        }
       },
       {
         "id": "tchalla",
         "name": "T'Challa",
-        "description": "SRE Engineer"
+        "description": "SRE Engineer",
+        "model": {
+          "primary": "anthropic/claude-haiku-4-5",
+          "fallbacks": ["openrouter/anthropic/claude-haiku-4-5", "openrouter/auto"]
+        }
       },
       {
         "id": "scott-lang",
         "name": "Scott Lang",
-        "description": "Flutter Developer"
+        "description": "Flutter Developer",
+        "model": {
+          "primary": "anthropic/claude-haiku-4-5",
+          "fallbacks": ["openrouter/anthropic/claude-haiku-4-5", "openrouter/auto"]
+        }
       },
       {
         "id": "natasha-romanoff",
         "name": "Natasha Romanoff",
-        "description": "QA Engineer"
+        "description": "QA Engineer",
+        "model": {
+          "primary": "anthropic/claude-haiku-4-5",
+          "fallbacks": ["openrouter/anthropic/claude-haiku-4-5", "openrouter/auto"]
+        }
       },
       {
         "id": "peter-parker",
         "name": "Peter Parker",
-        "description": "Content / Social Media"
+        "description": "Content / Social Media",
+        "model": {
+          "primary": "anthropic/claude-haiku-4-5",
+          "fallbacks": ["openrouter/anthropic/claude-haiku-4-5", "openrouter/auto"]
+        }
       }
     ]
+  },
+  "models": {
+    "providers": {
+      "openrouter": {
+        "params": {
+          "provider": {
+            "sort": "price",
+            "data_collection": "deny"
+          }
+        }
+      }
+    }
   },
   "mcp": {
     "servers": {
@@ -106,7 +172,7 @@
   "gateway": {
     "port": 18789,
     "auth": {
-      "token": "${GATEWAY_TOKEN}"
+      "token": "${OPENCLAW_GATEWAY_TOKEN}"
     }
   },
   "commands": {
@@ -117,7 +183,7 @@
       "enabled": true,
       "voice": {
         "service": "elevenlabs",
-        "voiceId": "ycxdm1PRMs962FxyyuJ0",
+        "voiceId": "${ELEVENLABS_VOICE_ID}",
         "model": "eleven_turbo_v2_5"
       }
     }
