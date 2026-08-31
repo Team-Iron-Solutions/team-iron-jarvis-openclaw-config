@@ -1,8 +1,8 @@
 # 🦾 OpenClaw Configuration - Team Iron Solutions
 
-Infrastructure as Code para replicar o ambiente completo de OpenClaw, agentes, playbooks e MCP servers da Team Iron Solutions em qualquer servidor.
+Infrastructure as Code para replicar o ambiente completo de OpenClaw, agentes, playbooks e MCP servers da Team Iron Solutions em qualquer servidor — macOS ou Linux/VPS.
 
-**Status:** ✅ Production-ready (agosto 2026)
+**Status:** ✅ Production-ready (agosto 2026) · **Multi-OS:** macOS + Linux ✅ · **Multi-cliente:** ✅
 
 ---
 
@@ -12,7 +12,9 @@ Infrastructure as Code para replicar o ambiente completo de OpenClaw, agentes, p
 - ✅ **Playbooks de Excelência** — padrões operacionais para cada agente
 - ✅ **Workspace Completo** — SOUL.md, AGENTS.md, MEMORY.md, documentação
 - ✅ **3 Servidores MCP** — memory, filesystem, github
-- ✅ **Script de Setup Automatizado** — replica tudo em minutos
+- ✅ **Script de Setup Multi-OS** — macOS (LaunchAgent) + Linux (systemd)
+- ✅ **Suporte Multi-Cliente** — padrões isolados por cliente (STANDARDS, TECH-STACK, CODING-RULES)
+- ✅ **Task Dispatch Protocol** — garantia de que regras do cliente são sempre respeitadas
 - ✅ **Infrastructure as Code** — versione e replique com segurança
 
 ---
@@ -76,33 +78,39 @@ openclaw agent --agent main --message "Olá, qual é meu nome?"
 
 ```
 .
-├── README.md                      # Este arquivo
-├── setup.sh                       # Script de replicação (automation)
-├── .gitignore                     # Segurança (sem secrets!)
+├── README.md                        # Este arquivo
+├── setup.sh                         # Setup multi-OS (macOS + Linux)
+├── .gitignore                       # Segurança (sem secrets!)
 │
 ├── config/
-│   ├── openclaw.template.json     # Template config (sem secrets)
-│   └── mcp/                       # Definições MCP
+│   └── openclaw.template.json         # Template config (sem secrets)
 │
-└── workspace/
-    ├── SOUL.md                    # Identidade & tom (Jarvis)
-    ├── AGENTS.md                  # Workspace overview
-    ├── MEMORY.md                  # Long-term memory (durable)
-    ├── IDENTITY.md                # Avatar & appearance
-    ├── USER.md                    # Quem é Galvão
-    ├── TOOLS.md                   # Notas locais (cameras, hosts, etc)
-    │
-    └── playbooks/
-        ├── TONY-STARK-EXCELLENCE-PLAYBOOK.md
-        ├── BRUCE-BANNER-EXCELLENCE-PLAYBOOK.md
-        ├── STEVE-ROGERS-EXCELLENCE-PLAYBOOK.md
-        ├── STEPHEN-STRANGE-EXCELLENCE-PLAYBOOK.md
-        ├── VISAO-DATA-IA-EXCELLENCE-PLAYBOOK.md
-        ├── WANDA-MAXIMOFF-EXCELLENCE-PLAYBOOK.md
-        ├── TCHALLA-SRE-EXCELLENCE-PLAYBOOK.md
-        ├── SCOTT-LANG-EXCELLENCE-PLAYBOOK.md
-        ├── NATASHA-ROMANOFF-EXCELLENCE-PLAYBOOK.md
-        └── PETER-PARKER-EXCELLENCE-PLAYBOOK.md
+├── clients/                         # 🕑 Padrões por cliente
+│   ├── README.md
+│   ├── _TEMPLATE/                     # Template para novos clientes
+│   │   ├── STANDARDS.md               # Padrões de codificação
+│   │   ├── TECH-STACK.md              # Tecnologias e versões
+│   │   ├── CODING-RULES.md            # Regras obrigatórias
+│   │   └── CONTEXT.md                 # Contexto do projeto
+│   └── _EXEMPLO-CLIENTE/              # Exemplo preenchido (Acme Corp)
+│
+├── docs/                            # 📖 Documentação operacional
+│   ├── DEPLOYMENT-GUIDE.md            # Como fazer deploy em VPS/Mac
+│   └── TASK-DISPATCH-PROTOCOL.md      # Como enviar tasks com contexto
+│
+├── agents-workspaces/               # Workspaces individuais dos agentes
+│   ├── tony/
+│   ├── bruce/
+│   ├── steve/
+│   └── ... (10 agentes)
+│
+└── workspace/                       # Workspace do Jarvis (main)
+    ├── SOUL.md
+    ├── AGENTS.md
+    ├── MEMORY.md
+    ├── IDENTITY.md
+    ├── USER.md
+    └── TOOLS.md
 ```
 
 ---
@@ -289,6 +297,31 @@ Edit `config/openclaw.template.json`:
 ```bash
 openclaw mcp serve --url wss://remote-gateway:18789 --token-file ~/.openclaw/gateway.token
 ```
+
+---
+
+## 🌐 Multi-Servidor: Central Brain + Remote Nodes
+
+Este IaC suporta o modelo onde o servidor central (VPS ou Mac mini) roda todos os agentes, e máquinas dos clientes se conectam como **nodes remotos**.
+
+```
+Servidor Central (Hostinger VPS / Mac mini)
+├── Jarvis + 10 agentes (cérebro)
+└── clients/ (padrões isolados por cliente)
+        ↓ OpenClaw Node Protocol
+├── node-cliente-a  → repo/projetos do Cliente A
+├── node-cliente-b  → repo/projetos do Cliente B
+└── node-cliente-c  → repo/projetos do Cliente C
+```
+
+**Cada cliente tem:**
+- Node dedicado com seu ambiente e repos
+- Pasta `clients/<nome>/` com seus padrões isolados
+- Agentes que respeitam suas regras via Task Dispatch Protocol
+
+**Guia completo:** [docs/DEPLOYMENT-GUIDE.md](./docs/DEPLOYMENT-GUIDE.md)
+**Padrões por cliente:** [clients/README.md](./clients/README.md)
+**Como enviar tasks:** [docs/TASK-DISPATCH-PROTOCOL.md](./docs/TASK-DISPATCH-PROTOCOL.md)
 
 ---
 
