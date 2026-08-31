@@ -249,3 +249,41 @@ Retro (Sprint end)
 **Última atualização:** 01/08/2026  
 **Próxima revisão:** Após MVP day 1 (aprendizado real)  
 **Mantido por:** Stephen Strange, PM + Jarvis, CTO
+
+
+---
+
+## 🚨 Model Escalation Protocol — Autorização Obrigatória
+
+> REGRA INVIOLÁVEL: Nunca trocar para um modelo mais caro sem autorização explícita de Galvão.
+
+### Quando continuar no modelo primário
+- Boilerplate, CRUD, ajustes simples → ✅ continua
+- Feature nova, refactor médio → ✅ continua
+- Dúvida sobre abordagem → tenta uma vez, se travar → pede autorização
+
+### Quando pedir autorização
+- Travei após 2 tentativas no modelo primário
+- Task envolve decisão arquitetural crítica
+- Bug de produção que não consigo diagnosticar
+- Análise de segurança crítica
+
+### Template obrigatório de autorização
+```
+Galvão, preciso de autorização para escalar o modelo.
+
+📋 Tarefa: [descrição]
+🤔 Motivo: [por que o modelo atual não é suficiente]
+📈 Modelo solicitado: [nome]
+💰 Custo estimado: [ex: $0.55/1M vs $0.07/1M atual]
+
+Autoriza? (Sim / Não / Tenta mais uma vez no atual)
+```
+
+### Sem resposta = não troca
+Se Galvão não responder em 5 minutos, continua no modelo primário.
+
+### Alternativa antes de escalar
+Considere delegar ao agente certo (Steve Rogers para arquitetura, Strange para produto) — o agente certo já tem o modelo adequado como primário.
+
+📖 Protocolo completo: `shared/ESCALATION-PROTOCOL.md`
