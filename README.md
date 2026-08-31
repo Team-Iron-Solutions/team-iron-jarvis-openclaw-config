@@ -1,8 +1,21 @@
 # 🦾 Team Iron Solutions — OpenClaw Config
 
-> Infrastructure as Code para replicar o ambiente completo de OpenClaw com 10 agentes, economia de tokens de 73-85% e integração de knowledge graphs.
+Infrastructure as Code para replicar o ambiente completo de OpenClaw, agentes, playbooks e MCP servers da Team Iron Solutions em qualquer servidor — macOS ou Linux/VPS.
 
-**Status:** ✅ Production-ready | **Última atualização:** 30/08/2026
+**Status:** ✅ Production-ready (agosto 2026) · **Multi-OS:** macOS + Linux ✅ · **Multi-cliente:** ✅
+
+---
+
+## 🎯 O que está incluído
+
+- ✅ **10 Agentes Configurados** (Tony Stark, Bruce Banner, Steve Rogers, etc.)
+- ✅ **Playbooks de Excelência** — padrões operacionais para cada agente
+- ✅ **Workspace Completo** — SOUL.md, AGENTS.md, MEMORY.md, documentação
+- ✅ **3 Servidores MCP** — memory, filesystem, github
+- ✅ **Script de Setup Multi-OS** — macOS (LaunchAgent) + Linux (systemd)
+- ✅ **Suporte Multi-Cliente** — padrões isolados por cliente (STANDARDS, TECH-STACK, CODING-RULES)
+- ✅ **Task Dispatch Protocol** — garantia de que regras do cliente são sempre respeitadas
+- ✅ **Infrastructure as Code** — versione e replique com segurança
 
 ---
 
@@ -68,53 +81,142 @@ openclaw status
 ## 📁 Estrutura do Repositório
 
 ```
-~/.openclaw/workspace/
+.
+├── README.md                        # Este arquivo
+├── setup.sh                         # Setup multi-OS (macOS + Linux)
+├── .gitignore                       # Segurança (sem secrets!)
 │
-├── 📄 AGENTS.md              ← Instruções do agente (lido pelo Gateway)
-├── 📄 SOUL.md                ← Personalidade e tom
-├── 📄 MEMORY.md              ← Memória de longo prazo
-├── 📄 IDENTITY.md            ← Nome, emoji, avatar
-├── 📄 TOOLS.md               ← Notas de ferramentas locais
-├── 📄 USER.md                ← Contexto do usuário (Galvão)
-├── 📄 HEARTBEAT.md           ← Checklist de heartbeat
+├── config/
+│   └── openclaw.template.json         # Template config (sem secrets)
 │
-├── 📄 SETUP.md               ← Guia de instalação em nova máquina
-├── 📄 TOKEN-OPTIMIZATION.md  ← Estratégia completa de economia de tokens
-├── 📄 README.md              ← Este arquivo
+├── clients/                         # 🕑 Padrões por cliente
+│   ├── README.md
+│   ├── _TEMPLATE/                     # Template para novos clientes
+│   │   ├── STANDARDS.md               # Padrões de codificação
+│   │   ├── TECH-STACK.md              # Tecnologias e versões
+│   │   ├── CODING-RULES.md            # Regras obrigatórias
+│   │   └── CONTEXT.md                 # Contexto do projeto
+│   └── _EXEMPLO-CLIENTE/              # Exemplo preenchido (Acme Corp)
 │
-├── 🔧 caveman-middleware-esm.js  ← Phase 3: compressão de contexto (-45%)
-├── 🔧 setup.sh                   ← Script de setup geral
-├── 🔧 package-lock.json          ← Lock Node.js
-├── 🔧 pyproject.toml             ← Dependências Python (Graphify)
-├── 🔧 uv.lock                    ← Lock Python
+├── docs/                            # 📖 Documentação operacional
+│   ├── DEPLOYMENT-GUIDE.md            # Como fazer deploy em VPS/Mac
+│   └── TASK-DISPATCH-PROTOCOL.md      # Como enviar tasks com contexto
 │
-├── 📁 agents-workspaces/     ← Playbooks por agente
-│   ├── tony/EXCELLENCE-PLAYBOOK.md
-│   ├── bruce/EXCELLENCE-PLAYBOOK.md
-│   ├── steve/EXCELLENCE-PLAYBOOK.md
-│   ├── stephen/EXCELLENCE-PLAYBOOK.md
-│   ├── visao/EXCELLENCE-PLAYBOOK.md
-│   ├── wanda/EXCELLENCE-PLAYBOOK.md
-│   ├── tchalla/EXCELLENCE-PLAYBOOK.md
-│   ├── scott/EXCELLENCE-PLAYBOOK.md
-│   ├── natasha/EXCELLENCE-PLAYBOOK.md
-│   └── peter/EXCELLENCE-PLAYBOOK.md
+├── agents-workspaces/               # Workspaces individuais dos agentes
+│   ├── tony/
+│   ├── bruce/
+│   ├── steve/
+│   └── ... (10 agentes)
 │
-├── 📁 config/
-│   └── openclaw.template.json    ← Template de configuração (sem secrets)
-│
-├── 📁 docs/
-│   ├── CAVEMAN-INTEGRATION.md    ← Phase 3: guia de integração
-│   ├── OPENROUTER-SETUP.md       ← Phase 2: setup OpenRouter
-│   ├── GRAPHIFY-OVERVIEW.md      ← Phase 4: visão geral
-│   ├── GRAPHIFY-SETUP.md         ← Phase 4: instalação
-│   ├── GRAPHIFY-CHEATSHEET.md    ← Phase 4: referência rápida
-│   ├── AGENTS-CAPABILITIES.md    ← Capacidades dos agentes
-│   ├── adr/                      ← Architecture Decision Records
-│   └── wiki/                     ← Wiki do projeto
-│
-└── 📁 scripts/
-    └── setup-graphify.sh         ← Setup automatizado do Graphify
+└── workspace/                       # Workspace do Jarvis (main)
+    ├── SOUL.md
+    ├── AGENTS.md
+    ├── MEMORY.md
+    ├── IDENTITY.md
+    ├── USER.md
+    └── TOOLS.md
+```
+
+---
+
+## 🔐 Segurança & Secrets
+
+⚠️ **NUNCA commite secrets!** O `.gitignore` protege:
+- `openclaw.json` (local)
+- `.github-token`
+- `*.token` files
+- `.env*`
+
+**Setup Seguro:**
+1. Clone repositório ✅
+2. Rode `setup.sh` (cria config vazio)
+3. Adicione secrets em `~/.openclaw/openclaw.json` LOCALMENTE
+4. Configure env vars: `export GITHUB_TOKEN=...`
+
+---
+
+## 🔌 MCP Servers Configurados
+
+| Servidor | Ferramentas | Uso |
+|----------|-------------|-----|
+| **memory** | 9 | Contexto persistente, grafo de conhecimento |
+| **filesystem** | 6 | Ler/escrever código, explorar workspace |
+| **github** | 26 | Repos, issues, PRs, code search, commits |
+
+### Adicionar mais servidores
+
+```bash
+# PostgreSQL (data queries)
+openclaw mcp add postgres \
+  --command npx --arg -y --arg @modelcontextprotocol/server-postgres \
+  --env DATABASE_URL="postgresql://user:pass@localhost/db"
+
+# Slack (team messages)
+openclaw mcp add slack \
+  --command npx --arg -y --arg @modelcontextprotocol/server-slack \
+  --env SLACK_BOT_TOKEN="xoxb-..."
+
+# Usar novo servidor
+openclaw mcp probe postgres --json
+```
+
+---
+
+## 👥 10 Agentes Pré-configurados
+
+Cada agente tem seu próprio **workspace**, **identidade**, **playbook de excelência** e **responsabilidades específicas**:
+
+| Agent | Alter Ego | Role | Stack |
+|-------|-----------|------|-------|
+| Tony Stark | Iron Man | Backend Node.js + Tech Lead | Node.js, API design, code review |
+| Bruce Banner | Hulk | Backend Python | Python, data analysis, optimization |
+| Steve Rogers | Capitão América | Architect | System design, CTO-level strategy |
+| Stephen Strange | Doutor Estranho | Product Manager | Roadmap, requirements, vision |
+| Visão | Vision | Data Engineer / IA | Pipelines, analytics, ML |
+| Wanda Maximoff | Scarlet Witch | Product Designer / UX | UI/UX, design system, research |
+| T'Challa | Black Panther | SRE Engineer | Infrastructure, deployment, LGPD |
+| Scott Lang | Ant-Man | Flutter Developer | Mobile, cross-platform, web |
+| Natasha Romanoff | Black Widow | QA Engineer | Testing, automation, quality gates |
+| Peter Parker | Spider-Man | Content / Social Media | Instagram, blog, storytelling |
+
+**Cada um tem:**
+- `workspace/<NAME>/EXCELLENCE-PLAYBOOK.md` — padrões de operação
+- `workspace/<NAME>/IDENTITY.md` — quem é esse agente
+- `workspace/<NAME>/USER.md` — contexto de trabalho
+- MCP access para memory, filesystem, github
+
+---
+
+## 📊 Validar Setup
+
+```bash
+# Ver tudo configurado
+openclaw mcp status
+
+# Provar que funciona (conecta aos servers)
+openclaw mcp doctor --probe
+
+# Testar um agente
+openclaw agent --agent tony-stark --message "Revise este código Node.js"
+
+# Ver log do Gateway
+tail -f /tmp/openclaw.log
+```
+
+---
+
+## 🔄 Atualizar Configuração
+
+Após pull de updates:
+
+```bash
+# Re-run setup (non-destructive)
+./setup.sh
+
+# Ou setup específico:
+openclaw mcp reload          # Recarrega servidores MCP
+openclaw skills load         # Recarrega skills
+openclaw gateway restart     # Reinicia gateway
 ```
 
 ---
@@ -171,7 +273,40 @@ Copie para `~/.openclaw/openclaw.json` e substitua os placeholders:
 
 ---
 
-## 📚 Documentação
+## 🌐 Multi-Servidor: Central Brain + Remote Nodes
+
+Este IaC suporta o modelo onde o servidor central (VPS ou Mac mini) roda todos os agentes, e máquinas dos clientes se conectam como **nodes remotos**.
+
+```
+Servidor Central (Hostinger VPS / Mac mini)
+├── Jarvis + 10 agentes (cérebro)
+└── clients/ (padrões isolados por cliente)
+        ↓ OpenClaw Node Protocol
+├── node-cliente-a  → repo/projetos do Cliente A
+├── node-cliente-b  → repo/projetos do Cliente B
+└── node-cliente-c  → repo/projetos do Cliente C
+```
+
+**Cada cliente tem:**
+- Node dedicado com seu ambiente e repos
+- Pasta `clients/<nome>/` com seus padrões isolados
+- Agentes que respeitam suas regras via Task Dispatch Protocol
+
+**Guia completo:** [docs/DEPLOYMENT-GUIDE.md](./docs/DEPLOYMENT-GUIDE.md)
+**Padrões por cliente:** [clients/README.md](./clients/README.md)
+**Como enviar tasks:** [docs/TASK-DISPATCH-PROTOCOL.md](./docs/TASK-DISPATCH-PROTOCOL.md)
+
+---
+
+## 📚 Referências
+
+- **OpenClaw Docs:** https://docs.openclaw.ai
+- **MCP Protocol:** https://modelcontextprotocol.io
+- **GitHub API:** https://docs.github.com/en/rest
+
+---
+
+## 📝 Versionamento
 
 | Documento | Conteúdo |
 |-----------|---------|
