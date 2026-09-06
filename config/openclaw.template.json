@@ -1,134 +1,43 @@
 {
   "meta": {
-    "version": "2026.8.30",
+    "version": "2026.09.05",
     "description": "Team Iron Solutions - OpenClaw Configuration Template",
-    "notes": "Copy to ~/.openclaw/openclaw.json. Replace all ${...} placeholders with real values."
-  },
-  "env": {
-    "OPENROUTER_API_KEY": "${OPENROUTER_API_KEY}"
-  },
-  "agents": {
-    "defaults": {
-      "thinking": "medium",
-      "model": {
-        "primary": "anthropic/claude-haiku-4-5",
-        "fallbacks": [
-          "openrouter/anthropic/claude-haiku-4-5",
-          "openrouter/auto",
-          "google/gemini-3.1-pro-preview"
-        ]
-      },
-      "skills": {
-        "allowBundled": ["gemini", "peekaboo"],
-        "load": {
-          "extraDirs": ["./workspace/skills"]
-        }
-      }
-    },
-    "list": [
-      {
-        "id": "main",
-        "name": "Jarvis - CTO",
-        "description": "Tech Lead & Architecture",
-        "model": {
-          "primary": "anthropic/claude-haiku-4-5",
-          "fallbacks": ["openrouter/anthropic/claude-haiku-4-5", "openrouter/auto"]
-        }
-      },
-      {
-        "id": "tony-stark",
-        "name": "Tony Stark",
-        "description": "Backend Node.js + Tech Lead",
-        "model": {
-          "primary": "anthropic/claude-haiku-4-5",
-          "fallbacks": ["openrouter/anthropic/claude-haiku-4-5", "openrouter/auto"]
-        }
-      },
-      {
-        "id": "bruce-banner",
-        "name": "Bruce Banner",
-        "description": "Backend Python",
-        "model": {
-          "primary": "anthropic/claude-haiku-4-5",
-          "fallbacks": ["openrouter/anthropic/claude-haiku-4-5", "openrouter/auto"]
-        }
-      },
-      {
-        "id": "steve-rogers",
-        "name": "Steve Rogers",
-        "description": "Software Architect",
-        "model": {
-          "primary": "anthropic/claude-sonnet-4-6",
-          "fallbacks": ["openrouter/anthropic/claude-sonnet-4-6"]
-        }
-      },
-      {
-        "id": "stephen-strange",
-        "name": "Stephen Strange",
-        "description": "Product Manager",
-        "model": {
-          "primary": "anthropic/claude-sonnet-4-6",
-          "fallbacks": ["openrouter/anthropic/claude-sonnet-4-6"]
-        }
-      },
-      {
-        "id": "visao",
-        "name": "Visão",
-        "description": "Data Engineer / IA",
-        "model": {
-          "primary": "anthropic/claude-haiku-4-5",
-          "fallbacks": ["openrouter/anthropic/claude-haiku-4-5", "openrouter/auto"]
-        }
-      },
-      {
-        "id": "wanda-maximoff",
-        "name": "Wanda Maximoff",
-        "description": "Product Designer / UX",
-        "model": {
-          "primary": "anthropic/claude-haiku-4-5",
-          "fallbacks": ["openrouter/anthropic/claude-haiku-4-5", "openrouter/auto"]
-        }
-      },
-      {
-        "id": "tchalla",
-        "name": "T'Challa",
-        "description": "SRE Engineer",
-        "model": {
-          "primary": "anthropic/claude-haiku-4-5",
-          "fallbacks": ["openrouter/anthropic/claude-haiku-4-5", "openrouter/auto"]
-        }
-      },
-      {
-        "id": "scott-lang",
-        "name": "Scott Lang",
-        "description": "Flutter Developer",
-        "model": {
-          "primary": "anthropic/claude-haiku-4-5",
-          "fallbacks": ["openrouter/anthropic/claude-haiku-4-5", "openrouter/auto"]
-        }
-      },
-      {
-        "id": "natasha-romanoff",
-        "name": "Natasha Romanoff",
-        "description": "QA Engineer",
-        "model": {
-          "primary": "anthropic/claude-haiku-4-5",
-          "fallbacks": ["openrouter/anthropic/claude-haiku-4-5", "openrouter/auto"]
-        }
-      },
-      {
-        "id": "peter-parker",
-        "name": "Peter Parker",
-        "description": "Content / Social Media",
-        "model": {
-          "primary": "anthropic/claude-haiku-4-5",
-          "fallbacks": ["openrouter/anthropic/claude-haiku-4-5", "openrouter/auto"]
-        }
-      }
+    "notes": "Copy to ~/.openclaw/openclaw.json. Replace all ${...} placeholders with real values.",
+    "changelog": [
+      "2026-09-05: Multi-agent model routing (Haiku primário 200k ctx, Qwen fallback)",
+      "2026-09-05: Heartbeat desabilitado em 10 agentes de trabalho (apenas main ativo)",
+      "2026-09-05: Critical Task Reminder → 3x/dia + isolated session",
+      "2026-09-05: Telegram canal configurado",
+      "2026-09-05: Providers Anthropic e Google registrados (fix Unknown model)",
+      "2026-09-06: Thresholds Tony/Bruce ajustados para -40% (Phase 5B Go/No-Go)"
     ]
   },
   "models": {
     "providers": {
+      "anthropic": {
+        "models": [
+          {
+            "id": "claude-haiku-4-5",
+            "name": "claude-haiku-4-5"
+          },
+          {
+            "id": "claude-sonnet-4-6",
+            "name": "claude-sonnet-4-6"
+          },
+          {
+            "id": "claude-sonnet-5",
+            "name": "claude-sonnet-5"
+          }
+        ]
+      },
+      "google": {
+        "models": [
+          {
+            "id": "gemini-3.1-pro-preview",
+            "name": "gemini-3.1-pro-preview"
+          }
+        ]
+      },
       "openrouter": {
         "params": {
           "provider": {
@@ -139,15 +48,176 @@
       }
     }
   },
+  "agents": {
+    "defaults": {
+      "model": {
+        "primary": "anthropic/claude-haiku-4-5",
+        "fallbacks": [
+          "openrouter/anthropic/claude-haiku-4-5",
+          "openrouter/auto",
+          "google/gemini-3.1-pro-preview"
+        ]
+      },
+      "modelPolicy": {
+        "allow": [
+          "anthropic/claude-haiku-4-5",
+          "anthropic/claude-sonnet-4-6",
+          "google/gemini-3.1-pro-preview",
+          "openrouter/deepseek/deepseek-r1",
+          "openrouter/deepseek/deepseek-v3",
+          "openrouter/qwen/qwen-2.5-coder-32b-instruct",
+          "openrouter/auto",
+          "openrouter/anthropic/claude-haiku-4-5",
+          "openrouter/google/gemini-2.5-pro"
+        ]
+      },
+      "heartbeat": {
+        "every": "30m",
+        "lightContext": true,
+        "isolatedSession": true
+      },
+      "models": {
+        "anthropic/claude-sonnet-4-6": {
+          "alias": "sonnet"
+        },
+        "google/gemini-3.1-pro-preview": {
+          "alias": "gemini"
+        },
+        "anthropic/claude-haiku-4-5": {
+          "alias": "haiku"
+        }
+      }
+    },
+    "ownership": "explicit",
+    "entries": {
+      "main": {
+        "model": {
+          "primary": "anthropic/claude-haiku-4-5",
+          "fallbacks": [
+            "openrouter/anthropic/claude-haiku-4-5",
+            "openrouter/auto",
+            "google/gemini-3.1-pro-preview"
+          ]
+        },
+        "heartbeat": {
+          "every": "30m",
+          "lightContext": true,
+          "isolatedSession": true
+        }
+      },
+      "tony": {
+        "model": {
+          "primary": "anthropic/claude-haiku-4-5",
+          "fallbacks": [
+            "openrouter/qwen/qwen-2.5-coder-32b-instruct",
+            "openrouter/deepseek/deepseek-v3",
+            "openrouter/auto"
+          ]
+        }
+      },
+      "bruce": {
+        "model": {
+          "primary": "anthropic/claude-haiku-4-5",
+          "fallbacks": [
+            "openrouter/qwen/qwen-2.5-coder-32b-instruct",
+            "openrouter/deepseek/deepseek-v3",
+            "openrouter/auto"
+          ]
+        }
+      },
+      "steve": {
+        "model": {
+          "primary": "anthropic/claude-sonnet-4-6",
+          "fallbacks": [
+            "openrouter/deepseek/deepseek-r1",
+            "openrouter/auto"
+          ]
+        }
+      },
+      "stephen": {
+        "model": {
+          "primary": "openrouter/deepseek/deepseek-r1",
+          "fallbacks": [
+            "anthropic/claude-sonnet-4-6",
+            "openrouter/auto"
+          ]
+        }
+      },
+      "scott": {
+        "model": {
+          "primary": "anthropic/claude-haiku-4-5",
+          "fallbacks": [
+            "openrouter/qwen/qwen-2.5-coder-32b-instruct",
+            "openrouter/deepseek/deepseek-v3",
+            "openrouter/auto"
+          ]
+        }
+      },
+      "natasha": {
+        "model": {
+          "primary": "anthropic/claude-haiku-4-5",
+          "fallbacks": [
+            "openrouter/qwen/qwen-2.5-coder-32b-instruct",
+            "openrouter/deepseek/deepseek-v3",
+            "openrouter/auto"
+          ]
+        }
+      },
+      "tchalla": {
+        "model": {
+          "primary": "anthropic/claude-haiku-4-5",
+          "fallbacks": [
+            "openrouter/qwen/qwen-2.5-coder-32b-instruct",
+            "openrouter/deepseek/deepseek-v3",
+            "openrouter/auto"
+          ]
+        }
+      },
+      "visao": {
+        "model": {
+          "primary": "anthropic/claude-haiku-4-5",
+          "fallbacks": [
+            "openrouter/qwen/qwen-2.5-coder-32b-instruct",
+            "openrouter/deepseek/deepseek-v3",
+            "openrouter/auto"
+          ]
+        }
+      },
+      "wanda": {
+        "model": {
+          "primary": "anthropic/claude-haiku-4-5",
+          "fallbacks": [
+            "openrouter/auto",
+            "google/gemini-3.1-pro-preview"
+          ]
+        }
+      },
+      "peter": {
+        "model": {
+          "primary": "anthropic/claude-haiku-4-5",
+          "fallbacks": [
+            "openrouter/auto",
+            "google/gemini-3.1-pro-preview"
+          ]
+        }
+      }
+    }
+  },
+  "gateway": {
+    "port": 18789,
+    "auth": {
+      "token": "${OPENCLAW_GATEWAY_TOKEN}"
+    }
+  },
   "mcp": {
     "servers": {
-      "memory": {
-        "command": "npx",
-        "args": ["-y", "@modelcontextprotocol/server-memory"]
-      },
       "filesystem": {
         "command": "npx",
-        "args": ["-y", "@modelcontextprotocol/server-filesystem", "./workspace"],
+        "args": [
+          "-y",
+          "@modelcontextprotocol/server-filesystem",
+          "/Users/teamironsolutions/.openclaw/workspace"
+        ],
         "toolFilter": {
           "include": [
             "read_file",
@@ -160,39 +230,185 @@
           ]
         }
       },
+      "memory": {
+        "command": "npx",
+        "args": [
+          "-y",
+          "@modelcontextprotocol/server-memory"
+        ]
+      },
       "github": {
         "command": "npx",
-        "args": ["-y", "@modelcontextprotocol/server-github"],
+        "args": [
+          "-y",
+          "@modelcontextprotocol/server-github"
+        ],
         "env": {
           "GITHUB_TOKEN": "${GITHUB_TOKEN}"
         }
       }
     }
   },
-  "gateway": {
-    "port": 18789,
-    "auth": {
-      "token": "${OPENCLAW_GATEWAY_TOKEN}"
+  "channels": {
+    "whatsapp": {
+      "enabled": true,
+      "accounts": {
+        "default": {
+          "enabled": true
+        }
+      }
+    },
+    "telegram": {
+      "enabled": true,
+      "tokenFile": "~/.openclaw/telegram.token",
+      "dmPolicy": "allowlist",
+      "allowFrom": [
+        "${TELEGRAM_CHAT_ID}"
+      ],
+      "notes": "Criar bot via @BotFather, salvar token em ~/.openclaw/telegram.token, configurar Chat ID"
     }
   },
-  "commands": {
-    "ownerAllowFrom": ["webchat:owner"]
-  },
-  "messages": {
-    "tts": {
-      "enabled": true,
-      "voice": {
-        "service": "elevenlabs",
-        "voiceId": "${ELEVENLABS_VOICE_ID}",
-        "model": "eleven_turbo_v2_5"
+  "messages": {},
+  "skills": {
+    "entries": {
+      "1password": {
+        "enabled": false
+      },
+      "apple-notes": {
+        "enabled": false
+      },
+      "apple-reminders": {
+        "enabled": false
+      },
+      "bear-notes": {
+        "enabled": false
+      },
+      "blogwatcher": {
+        "enabled": false
+      },
+      "blucli": {
+        "enabled": false
+      },
+      "camsnap": {
+        "enabled": false
+      },
+      "coding-agent": {
+        "enabled": false
+      },
+      "eightctl": {
+        "enabled": false
+      },
+      "gemini": {
+        "enabled": false
+      },
+      "gh-issues": {
+        "enabled": false
+      },
+      "gifgrep": {
+        "enabled": false
+      },
+      "github": {
+        "enabled": false
+      },
+      "gog": {
+        "enabled": false
+      },
+      "goplaces": {
+        "enabled": false
+      },
+      "himalaya": {
+        "enabled": false
+      },
+      "mcporter": {
+        "enabled": false
+      },
+      "model-usage": {
+        "enabled": false
+      },
+      "nano-pdf": {
+        "enabled": false
+      },
+      "obsidian": {
+        "enabled": false
+      },
+      "openai-whisper": {
+        "enabled": false
+      },
+      "openai-whisper-api": {
+        "enabled": true,
+        "apiKey": "env:OPENAI_API_KEY"
+      },
+      "openhue": {
+        "enabled": false
+      },
+      "oracle": {
+        "enabled": false
+      },
+      "ordercli": {
+        "enabled": false
+      },
+      "peekaboo": {
+        "enabled": false
+      },
+      "sag": {
+        "enabled": false
+      },
+      "session-logs": {
+        "enabled": false
+      },
+      "sherpa-onnx-tts": {
+        "enabled": false
+      },
+      "songsee": {
+        "enabled": false
+      },
+      "sonoscli": {
+        "enabled": false
+      },
+      "spotify-player": {
+        "enabled": false
+      },
+      "summarize": {
+        "enabled": false
+      },
+      "things-mac": {
+        "enabled": false
+      },
+      "tmux": {
+        "enabled": false
+      },
+      "trello": {
+        "enabled": false
+      },
+      "video-frames": {
+        "enabled": false
+      },
+      "xurl": {
+        "enabled": false
+      },
+      "task-manager": {
+        "enabled": true
+      },
+      "slack": {
+        "enabled": false
+      },
+      "wacli": {
+        "enabled": false
       }
     }
   },
-  "skills": {
-    "workshop": {
-      "approvalPolicy": "pending",
-      "maxPending": 50,
-      "maxSkillBytes": 40000
+  "commands": {
+    "ownerAllowFrom": [
+      "webchat:owner"
+    ]
+  },
+  "bindings": [
+    {
+      "type": "route",
+      "agentId": "main",
+      "match": {
+        "channel": "telegram"
+      }
     }
-  }
+  ]
 }
